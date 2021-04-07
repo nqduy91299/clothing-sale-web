@@ -1,0 +1,37 @@
+<div class="item-card shadow-sm rounded">
+  <span class="position-absolute item-sale-flag">Sale off!</span>
+  <button
+    mat-icon-button
+    class="btn-icon item-favorite"
+    (click)="btnFavoriteClick()"
+  >
+    <i
+      class="eva fs-22"
+      [ngClass]="{
+        'eva-heart-outline': !isFavorite,
+        'eva-heart favorite': isFavorite
+      }"
+    ></i>
+  </button>
+  <div class="item-image">
+    <div class="item-image__action w-100 text-center">
+      <button mat-raised-button class="mx-1">Add to cart</button>
+      <button mat-raised-button class="mx-1">Buy this now</button>
+    </div>
+    <img class="item-image__img" [src]="imgSrc" alt="item-img" />
+  </div>
+  <div class="item-name py-2 text-center">
+    <a class="item-name__link" href="#">639 Cold Blue Denim Joggers</a>
+  </div>
+  <div class="item-price text-center">
+    <span class="item-price__sub mx-2">12.00$</span>
+    <span class="item-price__main mx-2">8.00$</span>
+  </div>
+  <div class="item-size text-center mt-2">
+    <button mat-icon-button class="btn-size mx-1">38</button>
+    <button mat-icon-button class="btn-size mx-1">39</button>
+    <button mat-icon-button class="btn-size mx-1">40</button>
+    <button mat-icon-button class="btn-size mx-1">41</button>
+    <button mat-icon-button class="btn-size mx-1">42</button>
+  </div>
+</div>

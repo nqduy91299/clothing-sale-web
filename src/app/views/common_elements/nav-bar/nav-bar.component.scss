@@ -1,0 +1,52 @@
+@import "../../../../styles.scss";
+
+input[name="items-search-bar"] {
+  &.closing {
+    width: 0%;
+    padding: 0;
+    visibility: hidden;
+    animation: closeInScale 1s;
+  }
+  &.showing {
+    animation: showInScale 1s;
+  }
+}
+
+@keyframes showInScale {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 80%;
+  }
+}
+@keyframes closeInScale {
+  from {
+    width: 80%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+.nav-item {
+  a.nav-link {
+    &:hover {
+      color: $hover-color;
+    }
+  }
+  &.active {
+    a.nav-link {
+      font-weight: 600;
+      color: $active-color;
+
+      &:hover {
+        color: $hover-color;
+      }
+    }
+  }
+}
+
+.btn-link-login {
+  color: $active-color;
+}

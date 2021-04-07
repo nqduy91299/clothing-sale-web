@@ -1,1 +1,123 @@
-/* You can add global styles to this file, and also import other style files */
+// Declare global variable
+$primary-black-color: #222222;
+$secondary-black-color: #00000080;
+$hover-color: #e76b7e;
+$active-color: #db3d55;
+$title-color: #4e4e4e;
+
+// CSS HERE
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 17px;
+  color: $primary-black-color;
+}
+button {
+  outline: none !important;
+}
+
+.fs-22 {
+  font-size: 22px !important;
+}
+
+.fw-600 {
+  font-weight: 600;
+}
+
+.w-105 {
+  width: 105%;
+}
+
+.w-80 {
+  width: 80%;
+}
+
+.btn-icon {
+  &:hover {
+    color: $hover-color;
+  }
+}
+
+input {
+  &.form-control {
+    &:focus {
+      border-color: $hover-color;
+      box-shadow: 0 0 0 0.2rem rgba(207, 85, 101, 0.4);
+    }
+  }
+}
+
+mat-selection-list {
+  &.mat-selection-list {
+    &.mat-list-base {
+      &:focus {
+        outline: none !important;
+      }
+    }
+  }
+}
+
+mat-form-field {
+  &#input-quantity-items {
+    .mat-form-field-wrapper {
+      .mat-form-field-flex {
+        .mat-form-field-infix {
+          border-top-width: 0px;
+          padding-top: 21px !important;
+          padding-bottom: 20px !important;
+        }
+      }
+    }
+  }
+  .mat-form-field-wrapper {
+    .mat-form-field-outline {
+      color: rgba(0, 0, 0, 0.12) !important;
+
+      &:hover,
+      &:focus {
+        color: rgba(0, 0, 0, 0.12) !important;
+      }
+    }
+  }
+}
+
+.custom-select-search-outline {
+  .mat-form-field-wrapper {
+    padding-bottom: 0px !important;
+    margin: 0 !important;
+
+    .mat-form-field-outline {
+      color: #cdcdcd !important;
+    }
+
+    .mat-form-field-infix {
+      border-top-width: 10px !important;
+      padding-bottom: 10px !important;
+      padding-top: 8px !important;
+
+      .mat-select {
+        .mat-select-arrow-wrapper {
+          padding-top: 8px !important;
+        }
+      }
+
+      .mat-form-field-label-wrapper {
+        .mat-form-field-label {
+          padding-top: 2px !important;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1200px) {
+  .container,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container-xl {
+    max-width: 1400px !important;
+  }
+}

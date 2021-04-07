@@ -1,0 +1,103 @@
+<div class="container">
+  <div class="row my-4">
+    <div class="col-3">
+      <div class="type">
+        <h6 class="text-uppercase pb-1">Type</h6>
+        <mat-selection-list #shoes [multiple]="false">
+          <mat-list-option [value]="'all'" [selected]="true">
+            All
+          </mat-list-option>
+          <mat-list-option *ngFor="let shoe of typesOfShoes" [value]="shoe">
+            {{ shoe }}
+          </mat-list-option>
+        </mat-selection-list>
+      </div>
+      <div class="price mt-3">
+        <h6 class="text-uppercase">price</h6>
+        <div class="custom-slider">
+          <ngx-slider
+            [(value)]="minValue"
+            [(highValue)]="maxValue"
+            [options]="options"
+          ></ngx-slider>
+        </div>
+      </div>
+      <div class="size mt-3">
+        <h6 class="text-uppercase">size</h6>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Size</mat-label>
+          <mat-select>
+            <mat-option [value]="1"> 29 </mat-option>
+            <mat-option [value]="2"> 30 </mat-option>
+            <mat-option [value]="3"> 31 </mat-option>
+            <mat-option [value]="4"> 32 </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="col-9">
+      <div class="header-items border-bottom d-flex justify-content-between">
+        <div>
+          <h6 class="text-uppercase">Items</h6>
+        </div>
+        <div class="d-flex justify-content-end">
+          <h6 class="text-uppercase mr-3">sort by</h6>
+          <div class="custom-select-search-outline">
+            <mat-form-field appearance="outline">
+              <mat-select [(ngModel)]="sortValue">
+                <mat-option [value]="0"> Default </mat-option>
+                <mat-option [value]="1"> Ascending price </mat-option>
+                <mat-option [value]="2"> Descending price </mat-option>
+                <mat-option [value]="3"> A - Z </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="items-area row pt-3 m-auto">
+        <div class="col-4 my-2">
+          <app-item-card
+            [imgSrc]="
+              'https://thedenimaniac.com/wp-content/uploads/2019/10/AFT_3263web-768x768.jpg'
+            "
+          ></app-item-card>
+        </div>
+        <div class="col-4 my-2">
+          <app-item-card [isFavorite]="true"></app-item-card>
+        </div>
+        <div class="col-4 my-2">
+          <app-item-card
+            [imgSrc]="
+              'https://thedenimaniac.com/wp-content/uploads/2020/12/63980D-a-600x600.jpg'
+            "
+          ></app-item-card>
+        </div>
+        <div class="col-4 my-2">
+          <app-item-card
+            [imgSrc]="
+              'https://thedenimaniac.com/wp-content/uploads/2019/10/AFT_3263web-768x768.jpg'
+            "
+          ></app-item-card>
+        </div>
+        <div class="col-4 my-2">
+          <app-item-card [isFavorite]="true"></app-item-card>
+        </div>
+        <div class="col-4 my-2">
+          <app-item-card
+            [imgSrc]="
+              'https://thedenimaniac.com/wp-content/uploads/2020/12/63980D-a-600x600.jpg'
+            "
+          ></app-item-card>
+        </div>
+      </div>
+      <div class="pagination d-flex justify-content-end">
+        <mat-paginator
+          [length]="100"
+          [pageSize]="10"
+          [pageSizeOptions]="[5, 10, 25, 100]"
+        >
+        </mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>

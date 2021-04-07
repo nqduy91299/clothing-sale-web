@@ -1,0 +1,108 @@
+@import "../../../../styles.scss";
+
+@keyframes moveDown {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-10px);
+  }
+}
+
+.item-card {
+  position: relative;
+  border: 1px solid #0000003f;
+  padding-bottom: 0.5rem;
+  overflow: hidden;
+
+  .item-sale-flag {
+    cursor: default;
+    font-size: 13px;
+    padding: 2px 8px;
+    background: white;
+    font-weight: 700;
+    top: calc(3% + 2px);
+    left: 5%;
+    z-index: 1;
+  }
+  .item-favorite {
+    position: absolute;
+    top: 1%;
+    right: 5%;
+    z-index: 1;
+
+    .eva-heart {
+      color: $active-color;
+    }
+  }
+  .item-image {
+    position: relative;
+    overflow: hidden;
+    &:hover {
+      .item-image__action {
+        display: block;
+        position: absolute;
+        bottom: 5%;
+        left: 0;
+        z-index: 1;
+
+        button {
+          animation: moveDown 1s infinite alternate;
+          background: #ffffff7e;
+
+          &:hover {
+            background: white;
+          }
+        }
+      }
+    }
+    .item-image__action {
+      display: none;
+    }
+
+    .item-image__img {
+      max-width: 310px;
+      max-height: 310px;
+      transition: ease-in;
+      cursor: pointer;
+      &:hover {
+        transition-duration: 0.25s;
+        transform: scale(1.15);
+      }
+    }
+  }
+  .item-name {
+    font-weight: 500;
+    z-index: 1;
+    .item-name__link {
+      color: $title-color !important;
+      text-decoration: none;
+      &:hover {
+        color: $active-color !important;
+      }
+    }
+  }
+  .item-price {
+    font-weight: 600;
+    .item-price__sub {
+      color: $secondary-black-color;
+      text-decoration: line-through $secondary-black-color;
+    }
+  }
+  .item-size {
+    .btn-size {
+      width: 30px;
+      height: 30px;
+      line-height: 20px;
+      font-size: 14px;
+      border: 1px solid $active-color;
+      color: $active-color;
+
+      &:hover {
+        color: white;
+        background: $hover-color;
+        border: 1px solid $hover-color;
+      }
+    }
+  }
+}
