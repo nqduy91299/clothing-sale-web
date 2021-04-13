@@ -1,0 +1,145 @@
+<div class="container">
+  <div class="row py-3 aligt-item-center d-flex justify-content-center">
+    <div class="col-12">
+      <div
+        class="search form-group px-5 d-flex justify-content-center border-bottom py-3"
+      >
+        <input
+          class="form-control mx-2 w-50"
+          type="text"
+          placeholder="Your order's id"
+        />
+        <button mat-raised-button class="text-white bg-active-color">
+          Search
+        </button>
+      </div>
+      <div class="status pb-3 pt-2 border-bottom">
+        <h5 class="text-uppercase mb-2">Status</h5>
+        <div class="mb-2">
+          <span>Order id: 12312321</span>
+          <span class="mx-2 font-weight-bold"> | </span>
+          <span>Delivering</span>
+        </div>
+        <div class="stepper d-flex mb-5 justify-content-center px-2">
+          <div class="wrapper-item-stepper">
+            <div
+              class="step-order rounded-circle p-4 mx-auto"
+              id="purchase-success"
+            >
+              <i class="eva eva-clipboard-outline"></i>
+            </div>
+            <span class="description-step text-center pt-2 w-100">
+              Purchase
+            </span>
+          </div>
+          <div class="wrapper-item-stepper">
+            <div
+              class="step-order rounded-circle p-4 mx-auto"
+              id="confirm-purchase"
+            >
+              <i class="eva eva-checkmark-square-outline"></i>
+            </div>
+            <span class="description-step text-center pt-2 w-100">
+              Confirm
+            </span>
+          </div>
+          <div class="wrapper-item-stepper">
+            <div class="step-order rounded-circle p-4 mx-auto" id="delivery">
+              <i class="eva eva-car-outline"></i>
+            </div>
+            <span class="description-step text-center pt-2 w-100">
+              Delivering
+            </span>
+          </div>
+          <div class="wrapper-item-stepper">
+            <div class="step-order rounded-circle p-4 mx-auto" id="delivered">
+              <i class="eva eva-download-outline"></i>
+            </div>
+            <span class="description-step text-center pt-2 w-100">
+              Received
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="contact pb-3 pt-2 border-bottom">
+        <h5 class="text-uppercase mt-2 mb-3">Contact</h5>
+        <div class="d-flex flex-column">
+          <span class="fs-22 mb-2">Nguyễn Quốc Duy</span>
+          <span>0123123123</span>
+          <span class="font-italic">
+            19 Đ.Nguyễn Hữu Thọ, Tân Hưng, Quận 7, Thành phố Hồ Chí Minh
+          </span>
+        </div>
+      </div>
+      <div class="items pb-3 pt-2 border-bottom">
+        <h5 class="text-uppercase mt-2 mb-3">Items</h5>
+        <mat-table [dataSource]="itemsList">
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{ row.name }} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="size">
+            <mat-header-cell *matHeaderCellDef> Size </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{ row.size }} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="quantity">
+            <mat-header-cell *matHeaderCellDef> Quantity </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{ row.quantity }} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="price">
+            <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{ row.price }} </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="columnItems"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: columnItems"></mat-row>
+        </mat-table>
+
+        <div class="calc-item mt-3 d-flex justify-content-end mx-4">
+          <table>
+            <tr class="temp">
+              <td class="text-right">
+                <span>Temporary price:</span>
+              </td>
+              <td class="text-right">
+                <span class="pl-4">$201912</span>
+              </td>
+            </tr>
+            <tr class="promo">
+              <td class="text-right">
+                <span>Promotion:</span>
+              </td>
+              <td class="text-right">
+                <span class="pl-4">- $2</span>
+              </td>
+            </tr>
+            <tr class="delivery">
+              <td class="text-right">
+                <span>Delivery price:</span>
+              </td>
+              <td class="text-right">
+                <span class="pl-4">$201912</span>
+              </td>
+            </tr>
+            <tr class="total fs-22 font-weight-bold">
+              <td class="text-right pt-2">
+                <span>Total:</span>
+              </td>
+              <td class="text-right pt-2">
+                <span class="pl-4">$201912</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div
+        class="payment pb-3 pt-2 border-bottom d-flex justify-content-between pr-4"
+      >
+        <h5>Payment method</h5>
+        <span [style.fontSize]="'20px'"> c.o.d (Payment on delivery)</span>
+      </div>
+    </div>
+  </div>
+</div>

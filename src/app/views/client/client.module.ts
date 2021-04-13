@@ -5,10 +5,37 @@ import { ClientContainerComponent } from './client-container/client-container.co
 import { ClientRoutingModule } from './client-routing.module';
 import { HomeComponent } from './home/home.component';
 import { ItemDetailComponent } from './item-detail/item-detail.component';
+import { CheckOutComponent } from './check-out/check-out.component';
+import { CartComponent } from './cart/cart.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { TrackingOrderComponent } from './tracking-order/tracking-order.component';
+import { MaterialModule } from 'src/mat-modules';
 
 @NgModule({
-  declarations: [ClientContainerComponent, HomeComponent, ItemDetailComponent],
-  imports: [CommonModule, ClientRoutingModule, CommonElementsModule],
-  exports: [HomeComponent, ClientContainerComponent, ClientRoutingModule],
+  declarations: [
+    ClientContainerComponent,
+    HomeComponent,
+    ItemDetailComponent,
+    CheckOutComponent,
+    CartComponent,
+    LoginComponent,
+    RegisterComponent,
+    TrackingOrderComponent,
+  ],
+  imports: [
+    CommonModule,
+    ClientRoutingModule,
+    CommonElementsModule,
+    MaterialModule,
+  ],
+  exports: [
+    ClientContainerComponent,
+    HomeComponent,
+    ItemDetailComponent,
+    CheckOutComponent,
+    ClientRoutingModule,
+    CartComponent,
+  ],
 })
 export class ClientModule {}

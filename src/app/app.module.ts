@@ -10,8 +10,8 @@ import { ClientModule } from './views/client/client.module';
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    BrowserModule,
     AppRoutingModule,
+    BrowserModule,
     BrowserAnimationsModule,
     CommonElementsModule,
     AdminModule,

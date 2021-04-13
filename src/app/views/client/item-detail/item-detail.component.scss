@@ -6,11 +6,20 @@
 
 button {
   &.main-action {
-    color: $active-color;
-  }
-  &.love-list {
     background-color: $hover-color;
     color: white;
+    padding-left: 110px;
+    padding-right: 110px;
+    &:hover {
+      background: $active-color;
+    }
+  }
+  &.second-action {
+    color: $active-color;
+    &:hover {
+      background: $active-color;
+      color: white;
+    }
   }
 }
 
@@ -26,5 +35,39 @@ button {
     color: white;
     background: $hover-color;
     border: 1px solid $hover-color;
+  }
+}
+
+@media (max-width: 1900px) {
+  .img-product {
+    min-height: 830px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .img-product {
+    min-height: 560px;
+  }
+}
+
+@media (max-width: 970px) {
+  .img-product {
+    min-height: 360px;
+  }
+}
+@media (max-width: 750px) {
+  .img-product {
+    min-height: 430px;
+  }
+  .title {
+    padding-top: 0.5rem;
+    h1 {
+      font-size: 25px;
+    }
+  }
+  .price {
+    h3 {
+      font-size: 20px;
+    }
   }
 }

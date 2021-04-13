@@ -11,11 +11,25 @@ body {
   height: 100%;
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  font-size: 17px;
+  font-size: 16px;
   color: $primary-black-color;
 }
 button {
   outline: none !important;
+}
+.bg-active-color {
+  background: $active-color;
+
+  &:hover {
+    background-color: $hover-color;
+  }
+}
+.active-color {
+  color: $active-color;
+}
+
+.title-color {
+  color: $title-color;
 }
 
 .fs-22 {
@@ -33,7 +47,9 @@ button {
 .w-80 {
   width: 80%;
 }
-
+.form-full-width {
+  width: 100%;
+}
 .btn-icon {
   &:hover {
     color: $hover-color;
@@ -49,6 +65,14 @@ input {
   }
 }
 
+.mat-tab-group {
+  &.mat-primary {
+    .mat-ink-bar {
+      background-color: $active-color !important;
+    }
+  }
+}
+
 mat-selection-list {
   &.mat-selection-list {
     &.mat-list-base {
@@ -59,15 +83,67 @@ mat-selection-list {
   }
 }
 
+.mat-radio-button {
+  &.mat-accent {
+    &.mat-radio-checked {
+      .mat-radio-outer-circle {
+        border-color: $active-color;
+      }
+      .mat-radio-inner-circle {
+        background-color: $active-color;
+      }
+    }
+  }
+}
+
 mat-form-field {
   &#input-quantity-items {
     .mat-form-field-wrapper {
+      padding-bottom: 0;
       .mat-form-field-flex {
         .mat-form-field-infix {
           border-top-width: 0px;
           padding-top: 21px !important;
           padding-bottom: 20px !important;
         }
+      }
+    }
+  }
+  &.custom-small-outline {
+    &.pb-0 {
+      .mat-form-field-wrapper {
+        padding-bottom: 0 !important;
+      }
+    }
+    // Custom label
+    &.mat-form-field-appearance-outline {
+      &.mat-form-field-can-float {
+        &.mat-form-field-should-float {
+          .mat-form-field-label {
+            transform: translateY(-1.2em) scale(0.7);
+          }
+        }
+      }
+    }
+    .mat-form-field-wrapper {
+      padding-bottom: 0.8rem;
+
+      .mat-form-field-flex {
+        .mat-form-field-infix {
+          padding: 0.5em 0 0.7em 0;
+          border-top: 0.3em solid transparent;
+
+          // for mat-select
+          .mat-select-trigger {
+            .mat-select-arrow-wrapper {
+              transform: translateY(15%);
+            }
+          }
+        }
+      }
+      // mat-error font size down 60%
+      .mat-form-field-subscript-wrapper {
+        font-size: 60% !important;
       }
     }
   }
@@ -83,6 +159,7 @@ mat-form-field {
   }
 }
 
+// Only use in "Home"
 .custom-select-search-outline {
   .mat-form-field-wrapper {
     padding-bottom: 0px !important;
@@ -112,12 +189,34 @@ mat-form-field {
   }
 }
 
+.img-product {
+  .ngx-gallery {
+    .ngx-gallery-layout {
+      max-width: 670px;
+      max-height: 830px;
+      ngx-gallery-thumbnails {
+        height: calc(20% - 10px) !important;
+      }
+    }
+  }
+}
+
+// .mat-table {
+//   .mat-row {
+//     &:last-child {
+//       border-bottom-width: 0;
+//     }
+//   }
+// }
+
 @media (min-width: 1200px) {
   .container,
   .container-lg,
   .container-md,
   .container-sm,
   .container-xl {
-    max-width: 1400px !important;
+    &.custom-size {
+      max-width: 1400px !important;
+    }
   }
 }

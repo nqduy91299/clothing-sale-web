@@ -1,0 +1,27 @@
+@import "../../../../styles.scss";
+
+.address-select {
+  mat-form-field {
+    width: 32%;
+  }
+}
+
+.btn-back-to-cart {
+  color: $active-color;
+}
+
+.mat-column-name {
+  flex: 55%;
+}
+.mat-column-size {
+  flex: 10%;
+  justify-content: center !important;
+}
+.mat-column-quantity {
+  flex: 10%;
+  justify-content: center !important;
+}
+.mat-column-price {
+  flex: 25%;
+  justify-content: flex-end !important;
+}

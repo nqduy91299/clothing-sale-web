@@ -50,6 +50,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { NgxSummernoteModule } from 'ngx-summernote';
 
+import { ReactiveFormsModule } from '@angular/forms';
+
 @NgModule({
   exports: [
     A11yModule,
@@ -99,6 +101,7 @@ import { NgxSummernoteModule } from 'ngx-summernote';
     HttpClientModule,
     NgxGalleryModule,
     NgxSummernoteModule,
+    ReactiveFormsModule,
   ],
 
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'vi-VN' }],

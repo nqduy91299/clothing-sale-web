@@ -1,5 +1,6 @@
 import { LabelType, Options } from '@angular-slider/ngx-slider';
 import { Component, OnInit } from '@angular/core';
+import { ApiIndexService } from 'src/app/services/api-index.service';
 
 @Component({
   selector: 'app-home',
@@ -21,8 +22,16 @@ export class HomeComponent implements OnInit {
   ];
   sortValue = 0;
 
-  constructor() {}
-  ngOnInit(): void {}
+  constructor(private apiIndexService: ApiIndexService) {}
+  ngOnInit(): void {
+    this.getProducts();
+  }
+
+  getProducts() {
+    this.apiIndexService.apiProductsGet().subscribe((res) => {
+      console.log(res);
+    });
+  }
 }
 
 export function optionsRangeSlider(): Options {

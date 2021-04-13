@@ -5,6 +5,10 @@ import { FooterComponent } from './footer/footer.component';
 import { MaterialModule } from '../../../mat-modules';
 import { FavoriteListComponent } from './modals/favorite-list/favorite-list.component';
 import { ItemCardComponent } from './item-card/item-card.component';
+import { ProfileComponent } from './profile/profile.component';
+import { AccountContainerComponent } from './account-container/account-container.component';
+import { AllOrdersComponent } from './all-orders/all-orders.component';
+import { RouterLink } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -12,6 +16,9 @@ import { ItemCardComponent } from './item-card/item-card.component';
     FooterComponent,
     FavoriteListComponent,
     ItemCardComponent,
+    ProfileComponent,
+    AccountContainerComponent,
+    AllOrdersComponent,
   ],
   imports: [CommonModule, MaterialModule],
   exports: [
@@ -19,7 +26,9 @@ import { ItemCardComponent } from './item-card/item-card.component';
     FooterComponent,
     FavoriteListComponent,
     ItemCardComponent,
-    MaterialModule,
+    ProfileComponent,
+    AccountContainerComponent,
+    AllOrdersComponent,
   ],
 })
 export class CommonElementsModule {}

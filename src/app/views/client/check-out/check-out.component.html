@@ -1,0 +1,195 @@
+<div class="container">
+  <div class="row my-4">
+    <div class="col-7 p-4" [formGroup]="deliveryFrm">
+      <div class="delivery-info mb-2">
+        <h5 class="text-uppercase">Contact</h5>
+        <div class="mt-3">
+          <mat-form-field
+            class="form-full-width custom-small-outline"
+            appearance="outline"
+          >
+            <mat-label>Name</mat-label>
+            <input formControlName="name" matInput />
+            <mat-error>Name has to fill</mat-error>
+          </mat-form-field>
+
+          <mat-form-field
+            class="form-full-width custom-small-outline"
+            appearance="outline"
+          >
+            <mat-label>Phone</mat-label>
+            <input formControlName="phone" matInput />
+            <mat-error>Phone has to fill</mat-error>
+          </mat-form-field>
+
+          <mat-form-field
+            class="form-full-width custom-small-outline"
+            appearance="outline"
+          >
+            <mat-label>Address</mat-label>
+            <input formControlName="address" matInput />
+            <mat-error>Address has to fill</mat-error>
+          </mat-form-field>
+
+          <div class="address-select d-flex justify-content-between">
+            <mat-form-field class="custom-small-outline" appearance="outline">
+              <mat-label>Province / City</mat-label>
+              <mat-select
+                formControlName="province"
+                (selectionChange)="provinceValueChange($event.value)"
+              >
+                <mat-option
+                  *ngFor="let item of provincesList"
+                  [value]="item.ProvinceID"
+                >
+                  {{ item.ProvinceName }}
+                </mat-option>
+              </mat-select>
+              <mat-error>Please select Province or City</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="custom-small-outline" appearance="outline">
+              <mat-label>District</mat-label>
+              <mat-select
+                formControlName="district"
+                (selectionChange)="districtValueChange($event.value)"
+              >
+                <mat-option
+                  *ngFor="let item of districtsList"
+                  [value]="item.DistrictID"
+                >
+                  {{ item.DistrictName }}
+                </mat-option>
+              </mat-select>
+              <mat-error>Please select District</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="custom-small-outline" appearance="outline">
+              <mat-label>Ward</mat-label>
+              <mat-select formControlName="ward">
+                <mat-option
+                  *ngFor="let item of wardsList"
+                  [value]="item.WardCode"
+                >
+                  {{ item.WardName }}
+                </mat-option>
+              </mat-select>
+              <mat-error>Please select Ward</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="payment mb-2">
+        <h5 class="text-uppercase">Payment</h5>
+        <div class="select-payment mt-3">
+          <mat-radio-group
+            class="d-flex flex-column"
+            aria-label="Select an option"
+            formControlName="payment"
+          >
+            <mat-radio-button
+              class="border px-2 pt-2 rounded my-2"
+              [value]="PAYMENT.COD"
+            >
+              c.o.d (Payment on delivery)
+            </mat-radio-button>
+            <div
+              class="collapse"
+              [ngClass]="{ show: deliveryFrm.value.payment == PAYMENT.COD }"
+            >
+              <div class="card card-body">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life
+                accusamus terry richardson ad squid. Nihil anim keffiyeh
+                helvetica.
+              </div>
+            </div>
+            <mat-radio-button
+              class="border px-2 pt-2 rounded my-2"
+              [value]="PAYMENT.BANK"
+            >
+              Payment by bank transfer
+            </mat-radio-button>
+            <div
+              class="collapse"
+              [ngClass]="{ show: deliveryFrm.value.payment == PAYMENT.BANK }"
+            >
+              <div class="card card-body">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life
+                accusamus terry richardson ad squid. Nihil anim keffiyeh
+                helvetica.
+              </div>
+            </div>
+          </mat-radio-group>
+        </div>
+      </div>
+      <div class="action d-flex justify-content-between">
+        <button class="btn-back-to-cart" mat-stroked-button>
+          <i class="eva eva-arrow-back"></i>
+          <span class="mx-2">Back to cart</span>
+        </button>
+        <button mat-raised-button class="px-5 py-2 bg-active-color text-white">
+          Purchase
+        </button>
+      </div>
+    </div>
+    <div class="col-5 p-4 border rounded shadow-sm">
+      <div class="items mb-2">
+        <h5 class="text-uppercase text-center">Order</h5>
+        <mat-table [dataSource]="itemsList">
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{ row.name }} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="size">
+            <mat-header-cell *matHeaderCellDef> Size </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{ row.size }} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="quantity">
+            <mat-header-cell *matHeaderCellDef> Quantity </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{ row.quantity }} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="price">
+            <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{ row.price }} </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="columnItems"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: columnItems"></mat-row>
+        </mat-table>
+      </div>
+      <div class="discount py-4 d-flex">
+        <mat-form-field
+          class="custom-small-outline form-full-width pb-0"
+          appearance="outline"
+        >
+          <mat-label>Discount code</mat-label>
+          <input type="text" matInput />
+          <mat-error>Please select Ward</mat-error>
+        </mat-form-field>
+        <button
+          mat-raised-button
+          class="mx-2 px-5 text-white bg-active-color"
+          [disabled]="true"
+        >
+          Use it
+        </button>
+      </div>
+      <div class="calculate border-bottom border-top py-4">
+        <div class="cal-temp d-flex justify-content-between my-2">
+          <span>Temporary price</span>
+          <span>$12381</span>
+        </div>
+        <div class="delivery-method d-flex justify-content-between my-2">
+          <span>Delivery price</span>
+          <span>$20</span>
+        </div>
+      </div>
+      <div class="total py-4 d-flex justify-content-between">
+        <span>Total</span>
+        <span>$1237132</span>
+      </div>
+    </div>
+  </div>
+</div>

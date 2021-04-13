@@ -1,0 +1,94 @@
+<div class="col-md-8 col-12 py-3">
+  <table>
+    <tr>
+      <td class="align-top text-right pr-3">Name</td>
+      <td>
+        <mat-form-field
+          floatLabel="never"
+          class="custom-small-outline w-100"
+          appearance="outline"
+        >
+          <mat-label>Name</mat-label>
+          <input matInput />
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td class="align-top text-right pr-3">Email</td>
+      <td>
+        <mat-form-field class="custom-small-outline w-100" appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput />
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td class="align-top text-right pr-3">Gender</td>
+      <td>
+        <mat-form-field class="custom-small-outline w-100" appearance="outline">
+          <mat-label>Gender</mat-label>
+          <mat-select>
+            <mat-option value="one">First option</mat-option>
+            <mat-option value="two">Second option</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td class="align-top text-right pr-3">Address</td>
+      <td class="d-flex flex-column">
+        <mat-form-field class="custom-small-outline" appearance="outline">
+          <mat-label>Address</mat-label>
+          <input matInput />
+        </mat-form-field>
+        <div class="d-flex justify-content-between flex-wrap">
+          <mat-form-field class="custom-small-outline" appearance="outline">
+            <mat-label>Province/City</mat-label>
+            <mat-select>
+              <mat-option value="one">First option</mat-option>
+              <mat-option value="two">Second option</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field
+            class="custom-small-outline px-1"
+            appearance="outline"
+          >
+            <mat-label>District</mat-label>
+            <mat-select>
+              <mat-option value="one">First option</mat-option>
+              <mat-option value="two">Second option</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="custom-small-outline" appearance="outline">
+            <mat-label>Ward</mat-label>
+            <mat-select>
+              <mat-option value="one">First option</mat-option>
+              <mat-option value="two">Second option</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="align-top text-right pr-3">Birthday</td>
+      <td>
+        <mat-form-field class="custom-small-outline w-100" appearance="outline">
+          <mat-label>Choose a date</mat-label>
+          <input matInput [matDatepicker]="picker" />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </td>
+    </tr>
+  </table>
+  <div class="d-flex justify-content-end py-3">
+    <button mat-raised-button class="text-white bg-active-color px-5">
+      Save
+    </button>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="container-fluid bg">
+  <div class="row py-3 justify-content-center">
+    <div class="col-12">
+      <h1 class="pl-5 text-uppercase">
+        <a>ClothStore</a>
+      </h1>
+    </div>
+    <div class="col-md-5 col-12 my-5">
+      <div
+        class="login-card border rounded px-5 py-4 d-flex flex-column bg-white shadow-sm"
+      >
+        <h2 class="mb-5 text-center title-color">Login</h2>
+        <mat-form-field class="form-full-width" appearance="outline">
+          <mat-label>Email</mat-label>
+          <input type="email" matInput />
+        </mat-form-field>
+
+        <mat-form-field class="form-full-width" appearance="outline">
+          <mat-label>Password</mat-label>
+          <input type="password" matInput />
+        </mat-form-field>
+        <button mat-raised-button class="py-3 my-2 bg-active-color text-white">
+          Login
+        </button>
+        <a routerLink="/register" class="text-center">
+          <button mat-flat-button>Don't have an account?</button>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

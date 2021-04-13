@@ -1,0 +1,68 @@
+@import "../../../../styles.scss";
+
+.mat-row {
+  padding: 0.7rem 0;
+}
+
+.mat-header-cell {
+  color: white;
+  background-color: $hover-color;
+  font-size: 19px;
+}
+
+.mat-column-item {
+  flex: 55%;
+
+  &.mat-cell {
+    padding-left: 0;
+  }
+}
+.mat-column-size {
+  flex: 10%;
+  justify-content: center;
+}
+.mat-column-quantity {
+  flex: 15%;
+  justify-content: center;
+
+  input {
+    width: 15%;
+    border: none;
+    outline: none;
+  }
+}
+.mat-column-price {
+  flex: 25%;
+  justify-content: flex-end;
+}
+
+.img-cart {
+  max-width: 70px;
+  max-height: 70px;
+}
+.item-name {
+  font-size: 18px;
+}
+.item-price {
+  font-size: 16px;
+  font-weight: 500;
+}
+.total-price-label {
+  font-size: 18px;
+}
+.total-price {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+button {
+  &.btn-clear {
+    color: #737373;
+  }
+
+  &.btn-remove {
+    &:hover {
+      color: $active-color;
+    }
+  }
+}

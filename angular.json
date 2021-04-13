@@ -32,7 +32,8 @@
               "src/styles.scss",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/eva-icons/style/eva-icons.css",
-              "node_modules/summernote/dist/summernote-lite.min.css"
+              "node_modules/summernote/dist/summernote-lite.min.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.slim.min.js",
