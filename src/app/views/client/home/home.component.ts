@@ -33,8 +33,8 @@ export class HomeComponent implements OnInit {
 
   getProducts() {
     this.apiIndexService.apiProductsGet().subscribe((res) => {
-      // console.log(res);
-      this.productsList = [...res];
+      console.log(res)
+      this.productsList =[...res.body];
     });
   }
 }

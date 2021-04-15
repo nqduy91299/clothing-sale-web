@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -9,13 +9,13 @@ import { ProductModel } from '../models/index.model';
 })
 export class ApiIndexService {
   constructor(private httpClient: HttpClient) {}
-
-  apiProductsGet(): Observable<ProductModel[]> {
+  
+  apiProductsGet(): Observable<HttpResponse<ProductModel[]>> {
     const url = environment.host;
-    return this.httpClient.get<ProductModel[]>(url);
+    return this.httpClient.get<ProductModel[]>(url, { observe: 'response' });
   }
 
-  apiProductDetailGet(id: string): Observable<ProductModel> {
+  apiProductDetailGet(id: string) {
     const url = environment.host + 'product/' + id;
     return this.httpClient.get<ProductModel>(url);
   }
