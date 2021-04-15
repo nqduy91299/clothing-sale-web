@@ -9,7 +9,7 @@ const routes: Routes = [];
   imports: [
     AdminRoutingModule,
     ClientRoutingModule,
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' }),
   ],
   exports: [RouterModule],
 })

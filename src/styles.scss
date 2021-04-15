@@ -83,6 +83,26 @@ mat-selection-list {
   }
 }
 
+.mat-badge-content {
+  background: $hover-color;
+}
+.mat-badge-medium {
+  &.mat-badge-after {
+    .mat-badge-content {
+      right: -12px;
+    }
+  }
+  &.mat-badge-above {
+    .mat-badge-content {
+      top: -11px;
+    }
+  }
+  .mat-badge-content {
+    width: 19px;
+    height: 19px;
+    line-height: 22px;
+  }
+}
 .mat-radio-button {
   &.mat-accent {
     &.mat-radio-checked {
@@ -192,10 +212,12 @@ mat-form-field {
 .img-product {
   .ngx-gallery {
     .ngx-gallery-layout {
-      max-width: 670px;
-      max-height: 830px;
-      ngx-gallery-thumbnails {
-        height: calc(20% - 10px) !important;
+      max-width: 700px;
+      max-height: 700px;
+    }
+    .ngx-gallery-icon {
+      .ngx-gallery-icon-content {
+        color: $active-color;
       }
     }
   }

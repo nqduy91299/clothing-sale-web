@@ -1,6 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { ProductModel } from '../models/index.model';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +10,13 @@ import { environment } from 'src/environments/environment';
 export class ApiIndexService {
   constructor(private httpClient: HttpClient) {}
 
-  apiProductsGet() {
-    return this.httpClient.get(environment.host);
+  apiProductsGet(): Observable<ProductModel[]> {
+    const url = environment.host;
+    return this.httpClient.get<ProductModel[]>(url);
+  }
+
+  apiProductDetailGet(id: string): Observable<ProductModel> {
+    const url = environment.host + 'product/' + id;
+    return this.httpClient.get<ProductModel>(url);
   }
 }

@@ -1,114 +1,123 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { NgxGalleryOptions } from '@kolkov/ngx-gallery';
+import {
+  NgxGalleryAnimation,
+  NgxGalleryImageSize,
+  NgxGalleryOptions,
+} from '@kolkov/ngx-gallery';
 import { NgxGalleryImage } from '@kolkov/ngx-gallery';
-import { NgxGalleryAnimation } from '@kolkov/ngx-gallery';
+import { ProductModel } from 'src/app/models/index.model';
+import { ApiIndexService } from 'src/app/services/api-index.service';
+import { environment } from 'src/environments/environment';
 
+const galleryOption: NgxGalleryOptions[] = [
+  {
+    breakpoint: 1800,
+    preview: true,
+    previewArrows: true,
+    previewCloseOnEsc: true,
+    previewCloseOnClick: true,
+    thumbnailsPercent: 15,
+    imageSize: NgxGalleryImageSize.Contain,
+    thumbnailSize: NgxGalleryImageSize.Contain,
+    imageAnimation: NgxGalleryAnimation.Slide,
+  },
+  // max-width 800
+  {
+    breakpoint: 800,
+    imagePercent: 100,
+    thumbnailsPercent: 30,
+    thumbnailsMargin: 15,
+    thumbnailMargin: 15,
+  },
+  // max-width 400
+  {
+    breakpoint: 400,
+    preview: false,
+  },
+];
 @Component({
   selector: 'app-item-detail',
   templateUrl: './item-detail.component.html',
   styleUrls: ['./item-detail.component.scss'],
 })
 export class ItemDetailComponent implements OnInit {
-  galleryOptions: NgxGalleryOptions[] = [
-    {
-      breakpoint: 1800,
-      width: '100px !important',
-      height: '100px !important',
-      preview: true,
-      previewArrows: true,
-      previewCloseOnEsc: true,
-      previewCloseOnClick: true,
-      imagePercent: 80,
-      imageAnimation: NgxGalleryAnimation.Slide,
-    },
-    // max-width 800
-    {
-      breakpoint: 800,
-      width: '100%',
-      height: '600px',
-      imagePercent: 80,
-      thumbnailsPercent: 20,
-      thumbnailsMargin: 20,
-      thumbnailMargin: 20,
-    },
-    // max-width 400
-    {
-      breakpoint: 400,
-      preview: false,
-    },
-  ];
-  galleryImages: NgxGalleryImage[] = [
-    {
-      small:
-        'https://thedenimaniac.com/wp-content/uploads/2018/09/81922aa-e1607572933368.jpg',
-      medium:
-        'https://thedenimaniac.com/wp-content/uploads/2018/09/81922aa-e1607572933368.jpg',
-      big:
-        'https://thedenimaniac.com/wp-content/uploads/2018/09/81922aa-e1607572933368.jpg',
-    },
-    {
-      small:
-        'https://thedenimaniac.com/wp-content/uploads/2018/09/81922aa-e1607572933368.jpg',
-      medium:
-        'https://thedenimaniac.com/wp-content/uploads/2018/09/81922aa-e1607572933368.jpg',
-      big:
-        'https://thedenimaniac.com/wp-content/uploads/2018/09/81922aa-e1607572933368.jpg',
-    },
-    {
-      small:
-        'https://thedenimaniac.com/wp-content/uploads/2018/09/81922bb-e1607572949249.jpg',
-      medium:
-        'https://thedenimaniac.com/wp-content/uploads/2018/09/81922bb-e1607572949249.jpg',
-      big:
-        'https://thedenimaniac.com/wp-content/uploads/2018/09/81922bb-e1607572949249.jpg',
-    },
-  ];
-  config = getConfigSummerNote();
-  summernoteValue = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur minima error,
-     fugit quas voluptatibus vitae quam beatae autem laborum blanditiis similique nobis. Eu
-     m, enim ea nihil ipsa est sapiente eligendi quas iusto velit odio temporibus ipsam iure err
-     or perferendis officiis sint itaque vero quae soluta accusamus dicta aliquam repellendus mollitia
-      architecto? Veniam numquam laboriosam mollitia delectus odit, rerum voluptatem tempora culpa dolorem
-           s praesentium in reprehenderit ullam! Ducimus vel, commodi itaque aliquam fugiat tempore nisi volupta`;
+  galleryOptions: NgxGalleryOptions[] = galleryOption;
+  galleryImages: NgxGalleryImage[];
+  product: ProductModel;
+  sizeList = [];
+  sizeId;
+  itemLeft = 0;
+  itemQuantity = 1;
+  constructor(
+    private route: ActivatedRoute,
+    private apiIndexService: ApiIndexService,
+    public router: Router
+  ) {}
 
-  constructor() {}
+  ngOnInit(): void {
+    const id = this.route.snapshot.params.id;
+    this.getProductDetail(id);
+  }
 
-  ngOnInit(): void {}
-}
+  getProductDetail(id) {
+    this.apiIndexService.apiProductDetailGet(id).subscribe((res) => {
+      this.product = res;
+      console.log(res);
+      this.initSizeList(res.properties);
+      this.updateGallery(res.imageMain, res.imageArray);
+    });
+  }
+  initSizeList(arr) {
+    this.sizeList = arr.map((element) => {
+      element['isClick'] = false;
+      return element;
+    });
+  }
 
-export function getConfigSummerNote() {
-  return {
-    placeholder: '',
-    tabsize: 2,
-    height: '200px',
-    toolbar: [
-      ['misc', ['codeview', 'undo', 'redo']],
-      ['style', ['bold', 'italic', 'underline', 'clear']],
-      [
-        'font',
-        [
-          'bold',
-          'italic',
-          'underline',
-          'strikethrough',
-          'superscript',
-          'subscript',
-          'clear',
-        ],
-      ],
-      ['fontsize', ['fontname', 'fontsize', 'color']],
-      ['para', ['style', 'ul', 'ol', 'paragraph', 'height']],
-      ['insert', ['table', 'picture', 'hr']],
-    ],
-    fontNames: [
-      'Helvetica',
-      'Arial',
-      'Arial Black',
-      'Comic Sans MS',
-      'Courier New',
-      'Roboto',
-      'Times',
-    ],
-  };
+  updateGallery(main_img, arr_img) {
+    const img_link = environment.hostImage + main_img;
+    const imgMain = [{ small: img_link, medium: img_link, big: img_link }];
+
+    this.galleryImages = [...imgMain];
+
+    arr_img.forEach((element) => {
+      const link = environment.hostImage + element;
+      const img = { small: link, medium: link, big: link };
+
+      this.galleryImages = [...this.galleryImages, img];
+    });
+  }
+
+  btnSizeClick(id_size) {
+    if (id_size !== this.sizeId) {
+      this.sizeId = id_size;
+      this.sizeList.forEach((element) => {
+        if (element._id === id_size) {
+          this.itemLeft = element.quantity;
+          element.isClick = true;
+        } else {
+          element.isClick = false;
+        }
+      });
+    } else {
+      this.sizeId = null;
+      this.itemLeft = 0;
+      this.sizeList.map((element) => {
+        element.isClick = false;
+      });
+    }
+  }
+
+  buyNowClick() {
+    if (!!!this.sizeId) {
+      console.log(this.sizeId);
+      alert('Please select size first. Thank You!');
+    } else {
+      this.router.navigate([
+        `/checkout/${this.product._id}/${this.sizeId}/${this.itemQuantity}`,
+      ]);
+    }
+  }
 }

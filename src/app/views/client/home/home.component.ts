@@ -1,6 +1,8 @@
 import { LabelType, Options } from '@angular-slider/ngx-slider';
 import { Component, OnInit } from '@angular/core';
+import { ProductModel } from 'src/app/models/index.model';
 import { ApiIndexService } from 'src/app/services/api-index.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -21,6 +23,8 @@ export class HomeComponent implements OnInit {
     'Polo',
   ];
   sortValue = 0;
+  productsList: ProductModel[] = [];
+  ENVIRONMENT = environment;
 
   constructor(private apiIndexService: ApiIndexService) {}
   ngOnInit(): void {
@@ -29,7 +33,8 @@ export class HomeComponent implements OnInit {
 
   getProducts() {
     this.apiIndexService.apiProductsGet().subscribe((res) => {
-      console.log(res);
+      // console.log(res);
+      this.productsList = [...res];
     });
   }
 }

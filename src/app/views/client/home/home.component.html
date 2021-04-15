@@ -55,38 +55,10 @@
         </div>
       </div>
       <div class="items-area row pt-3 m-auto">
-        <div class="col-4 my-2">
+        <div class="col-4 my-2" *ngFor="let item of productsList">
           <app-item-card
-            [imgSrc]="
-              'https://thedenimaniac.com/wp-content/uploads/2019/10/AFT_3263web-768x768.jpg'
-            "
-          ></app-item-card>
-        </div>
-        <div class="col-4 my-2">
-          <app-item-card [isFavorite]="true"></app-item-card>
-        </div>
-        <div class="col-4 my-2">
-          <app-item-card
-            [imgSrc]="
-              'https://thedenimaniac.com/wp-content/uploads/2020/12/63980D-a-600x600.jpg'
-            "
-          ></app-item-card>
-        </div>
-        <div class="col-4 my-2">
-          <app-item-card
-            [imgSrc]="
-              'https://thedenimaniac.com/wp-content/uploads/2019/10/AFT_3263web-768x768.jpg'
-            "
-          ></app-item-card>
-        </div>
-        <div class="col-4 my-2">
-          <app-item-card [isFavorite]="true"></app-item-card>
-        </div>
-        <div class="col-4 my-2">
-          <app-item-card
-            [imgSrc]="
-              'https://thedenimaniac.com/wp-content/uploads/2020/12/63980D-a-600x600.jpg'
-            "
+            [itemCardConfig]="item"
+            [itemSizeConfig]="item.properties"
           ></app-item-card>
         </div>
       </div>

@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import {
   DistrictModel,
   ProvinceModel,
   WardModel,
 } from 'src/app/models/ghn.model';
+import { SizeModel } from 'src/app/models/index.model';
+import { ApiCheckoutService } from 'src/app/services/api-checkout.service';
 import { ApiGhnService } from 'src/app/services/api-ghn.service';
+import { ApiIndexService } from 'src/app/services/api-index.service';
 
 export enum PAYMENT {
   COD,
@@ -37,17 +41,59 @@ export class CheckOutComponent implements OnInit {
     discount: new FormControl(),
   });
 
-  itemsList = [
-    { name: 'item 1', size: 12, quantity: 1, price: '$ ' + 2010112 },
-    { name: 'item 2', size: 13, quantity: 1, price: '$ ' + 2010112 },
-    { name: 'item 3', size: 12, quantity: 1, price: '$ ' + 2010112 },
-    { name: 'item 4', size: 15, quantity: 1, price: '$ ' + 2010112 },
-  ];
+  itemsList = [];
+  tempPrice = 0;
+  totalPrice = 0;
+  deliveryPrice = 0;
 
-  constructor(private ghnApi: ApiGhnService) {}
+  constructor(
+    private ghnApi: ApiGhnService,
+    private activatedRoute: ActivatedRoute,
+    private apiIndexService: ApiIndexService,
+    private apiCheckoutService: ApiCheckoutService
+  ) {}
 
   ngOnInit(): void {
     this.getProvince();
+    const { id, size_id, quantity } = this.activatedRoute.snapshot.params;
+    console.log(id, size_id, quantity);
+    this.getItems(id, size_id, quantity);
+  }
+
+  purchase() {
+    const controls = this.deliveryFrm.controls;
+    if (this.deliveryFrm.invalid) {
+      Object.keys(controls).forEach((controlName) =>
+        controls[controlName].markAsTouched()
+      );
+      return;
+    } else {
+      console.log(this.deliveryFrm.value);
+      this.apiCheckoutService.apiCheckoutOrderPost(
+        this.deliveryFrm.value,
+        this.itemsList
+      );
+    }
+  }
+
+  getItems(item_id, size_id, quantity) {
+    this.apiIndexService.apiProductDetailGet(item_id).subscribe((res) => {
+      const { name, price, properties } = res;
+      const size = properties.find((item) => {
+        return item._id == size_id;
+      });
+      const newPrice = parseInt(quantity) * price;
+      const item = {
+        id: item_id,
+        name: name,
+        data: size,
+        price: newPrice,
+        quantity: quantity,
+      };
+      this.tempPrice = newPrice;
+      this.itemsList = [...this.itemsList, item];
+      this.updateTotalPrice();
+    });
   }
 
   getProvince() {
@@ -93,5 +139,9 @@ export class CheckOutComponent implements OnInit {
   }
   currencyFormat(num) {
     return '$' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+  }
+
+  updateTotalPrice() {
+    this.totalPrice = this.tempPrice + this.deliveryPrice;
   }
 }

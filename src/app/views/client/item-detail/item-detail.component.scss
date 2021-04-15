@@ -3,15 +3,18 @@
 #input-quantity-items {
   width: 10%;
 }
+a {
+  color: $active-color;
+}
 
 button {
   &.main-action {
-    background-color: $hover-color;
+    background-color: $active-color;
     color: white;
     padding-left: 110px;
     padding-right: 110px;
     &:hover {
-      background: $active-color;
+      background: $hover-color;
     }
   }
   &.second-action {
@@ -23,24 +26,41 @@ button {
   }
 }
 
-.btn-size {
-  width: 30px;
-  height: 30px;
-  line-height: 20px;
-  font-size: 14px;
-  border: 1px solid $active-color;
-  color: $active-color;
+.size {
+  .btn-size {
+    width: 30px;
+    height: 30px;
+    line-height: 20px;
+    font-size: 14px;
+    border: 1px solid $active-color;
+    color: $active-color;
 
-  &:hover {
-    color: white;
-    background: $hover-color;
-    border: 1px solid $hover-color;
+    &:disabled {
+      color: $active-color;
+      opacity: 0.5;
+    }
+
+    &:not(:disabled) {
+      &:hover {
+        color: white;
+        background: $hover-color;
+        border: 1px solid $hover-color;
+      }
+
+      &.active {
+        color: white;
+        background-color: $active-color;
+      }
+    }
   }
+}
+.invisible {
+  visibility: hidden;
 }
 
 @media (max-width: 1900px) {
   .img-product {
-    min-height: 830px;
+    min-height: 730px;
   }
 }
 

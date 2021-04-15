@@ -36,7 +36,11 @@ const routes: Routes = [
         component: ItemDetailComponent,
       },
       {
-        path: 'checkout/:id',
+        path: 'checkout',
+        component: CheckOutComponent,
+      },
+      {
+        path: 'checkout/:id/:size_id/:quantity',
         component: CheckOutComponent,
       },
     ],
@@ -52,7 +56,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
 export class ClientRoutingModule {}

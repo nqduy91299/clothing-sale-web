@@ -20,21 +20,27 @@ export class ApiGhnService {
   constructor(private httpClient: HttpClient) {}
 
   apiProvinceGet(): Observable<resProvinceModel> {
-    return this.httpClient.get<resProvinceModel>(this.url_province, {
+    const options = {
       headers: new HttpHeaders().set('token', environment.ghnToken),
-    });
+    };
+
+    return this.httpClient.get<resProvinceModel>(this.url_province, options);
   }
 
   apiDistrictGet(province_id: number): Observable<resDistrictModel> {
-    return this.httpClient.get<resDistrictModel>(this.url_district, {
+    const options = {
       headers: new HttpHeaders().set('token', environment.ghnToken),
       params: new HttpParams().set('province_id', province_id.toString()),
-    });
+    };
+
+    return this.httpClient.get<resDistrictModel>(this.url_district, options);
   }
   apiWardGet(district_id: number): Observable<resWardModel> {
-    return this.httpClient.get<resWardModel>(this.url_ward, {
+    const options = {
       headers: new HttpHeaders().set('token', environment.ghnToken),
       params: new HttpParams().set('district_id', district_id.toString()),
-    });
+    };
+
+    return this.httpClient.get<resWardModel>(this.url_ward, options);
   }
 }

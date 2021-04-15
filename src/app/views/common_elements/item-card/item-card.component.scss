@@ -48,10 +48,13 @@
 
         button {
           animation: moveDown 1s infinite alternate;
-          background: #ffffff7e;
+          background: #ffffff;
 
-          &:hover {
-            background: white;
+          &:not(:disabled) {
+            &:hover {
+              color: white;
+              background: $active-color;
+            }
           }
         }
       }
@@ -98,10 +101,21 @@
       border: 1px solid $active-color;
       color: $active-color;
 
-      &:hover {
-        color: white;
-        background: $hover-color;
-        border: 1px solid $hover-color;
+      &:disabled {
+        opacity: 0.5;
+      }
+
+      &:not(:disabled) {
+        &:hover {
+          color: white;
+          background: $hover-color;
+          border: 1px solid $hover-color;
+        }
+
+        &.active {
+          color: white;
+          background-color: $active-color;
+        }
       }
     }
   }

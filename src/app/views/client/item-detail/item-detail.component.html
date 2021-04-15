@@ -10,30 +10,53 @@
     <div class="col-md-6 col-12 pt-sm-3">
       <div class="title">
         <h1 class="font-weight-bold">
-          819 Essential Denim – Black – New Season
+          {{ product?.name }}
         </h1>
       </div>
       <div class="price mt-2">
-        <h3>$200</h3>
+        <h3>{{ product?.price }}VND</h3>
+      </div>
+      <div class="description py-3">
+        <!-- <div [(ngModel)]="summernoteValue" [ngxSummernote]="config"></div> -->
+        <div [ngxSummernoteView]="product?.description"></div>
       </div>
       <div class="size mt-3">
-        <button mat-icon-button class="btn-size mx-1">38</button>
-        <button mat-icon-button class="btn-size mx-1">39</button>
-        <button mat-icon-button class="btn-size mx-1">40</button>
-        <button mat-icon-button class="btn-size mx-1">41</button>
-        <button mat-icon-button class="btn-size mx-1">42</button>
+        <button
+          *ngFor="let item of sizeList"
+          mat-icon-button
+          class="btn-size mx-1"
+          [disabled]="item?.quantity == 0"
+          (click)="btnSizeClick(item?._id)"
+          [ngClass]="{ active: item?.isClick }"
+        >
+          {{ item?.size }}
+        </button>
         <br />
-        <div class="mt-1">
-          <span>23 items left</span>
+        <div class="mt-1 pt-2" [style.lineHeight]="'21.6px'">
+          <span [ngClass]="{ invisible: !itemLeft }">
+            <strong>{{ itemLeft }}</strong>
+            item{{ itemLeft > 1 ? "s" : "" }} left
+          </span>
         </div>
       </div>
       <div class="action mt-3">
         <div class="my-3">
           <mat-form-field id="input-quantity-items" appearance="outline">
-            <input matInput type="number" min="1" max="99" value="1" />
+            <input
+              matInput
+              type="number"
+              min="1"
+              max="99"
+              value="1"
+              [(ngModel)]="itemQuantity"
+            />
           </mat-form-field>
-          <button class="py-2 mx-2 main-action" mat-raised-button>
-            Buy now
+          <button
+            class="py-2 mx-2 main-action"
+            mat-raised-button
+            (click)="buyNowClick()"
+          >
+            Check out
           </button>
         </div>
         <button class="py-2 mr-2 mt-2 px-5 second-action" mat-raised-button>
@@ -46,9 +69,19 @@
         </button>
         <br />
       </div>
-      <div class="description mt-3">
-        <!-- <div [(ngModel)]="summernoteValue" [ngxSummernote]="config"></div> -->
-        <div [ngxSummernoteView]="summernoteValue"></div>
+      <div class="notification-cart pt-3">
+        <div class="alert alert-success fade shadow-sm">
+          Add item to cart successfully. Go to
+          <a routerLink="">CART</a>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="alert"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
       </div>
     </div>
   </div>

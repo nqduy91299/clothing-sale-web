@@ -8,7 +8,7 @@ import { ItemCardComponent } from './item-card/item-card.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AccountContainerComponent } from './account-container/account-container.component';
 import { AllOrdersComponent } from './all-orders/all-orders.component';
-import { RouterLink } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,7 @@ import { RouterLink } from '@angular/router';
     AccountContainerComponent,
     AllOrdersComponent,
   ],
-  imports: [CommonModule, MaterialModule],
+  imports: [CommonModule, MaterialModule, RouterModule.forChild([])],
   exports: [
     NavBarComponent,
     FooterComponent,

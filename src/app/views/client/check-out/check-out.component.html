@@ -127,7 +127,11 @@
           <i class="eva eva-arrow-back"></i>
           <span class="mx-2">Back to cart</span>
         </button>
-        <button mat-raised-button class="px-5 py-2 bg-active-color text-white">
+        <button
+          mat-raised-button
+          class="px-5 py-2 bg-active-color text-white"
+          (click)="purchase()"
+        >
           Purchase
         </button>
       </div>
@@ -143,7 +147,7 @@
 
           <ng-container matColumnDef="size">
             <mat-header-cell *matHeaderCellDef> Size </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{ row.size }} </mat-cell>
+            <mat-cell *matCellDef="let row"> {{ row.data.size }} </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="quantity">
@@ -179,16 +183,16 @@
       <div class="calculate border-bottom border-top py-4">
         <div class="cal-temp d-flex justify-content-between my-2">
           <span>Temporary price</span>
-          <span>$12381</span>
+          <span>${{ tempPrice }}</span>
         </div>
         <div class="delivery-method d-flex justify-content-between my-2">
           <span>Delivery price</span>
-          <span>$20</span>
+          <span>${{ deliveryPrice }}</span>
         </div>
       </div>
       <div class="total py-4 d-flex justify-content-between">
         <span>Total</span>
-        <span>$1237132</span>
+        <span>${{ totalPrice }}</span>
       </div>
     </div>
   </div>

@@ -1,5 +1,5 @@
 <div class="item-card shadow-sm rounded">
-  <span class="position-absolute item-sale-flag">Sale off!</span>
+  <!-- <span class="position-absolute item-sale-flag">Sale off!</span> -->
   <button
     mat-icon-button
     class="btn-icon item-favorite"
@@ -14,24 +14,47 @@
     ></i>
   </button>
   <div class="item-image">
-    <div class="item-image__action w-100 text-center">
-      <button mat-raised-button class="mx-1">Add to cart</button>
-      <button mat-raised-button class="mx-1">Buy this now</button>
+    <div
+      class="item-image__action w-100 text-center"
+      matTooltip="{{ !sizeId ? 'Select size first' : '' }}"
+    >
+      <button mat-raised-button class="mx-1" [disabled]="!sizeId">
+        Add to cart
+      </button>
+      <button
+        mat-raised-button
+        class="mx-1"
+        routerLink="/product/{{ itemCardConfig._id }}"
+      >
+        Buy this now
+      </button>
     </div>
-    <img class="item-image__img" [src]="imgSrc" alt="item-img" />
+    <img
+      class="item-image__img"
+      [src]="imgHost + itemCardConfig.imageMain"
+      alt="item-img"
+      routerLink="/product/{{ itemCardConfig._id }}"
+    />
   </div>
   <div class="item-name py-2 text-center">
-    <a class="item-name__link" href="#">639 Cold Blue Denim Joggers</a>
+    <a class="item-name__link" routerLink="/product/{{ itemCardConfig._id }}">
+      {{ itemCardConfig.name }}
+    </a>
   </div>
   <div class="item-price text-center">
-    <span class="item-price__sub mx-2">12.00$</span>
-    <span class="item-price__main mx-2">8.00$</span>
+    <!-- <span class="item-price__sub mx-2">12.00$</span> -->
+    <span class="item-price__main mx-2">{{ itemCardConfig.price }}VND</span>
   </div>
   <div class="item-size text-center mt-2">
-    <button mat-icon-button class="btn-size mx-1">38</button>
-    <button mat-icon-button class="btn-size mx-1">39</button>
-    <button mat-icon-button class="btn-size mx-1">40</button>
-    <button mat-icon-button class="btn-size mx-1">41</button>
-    <button mat-icon-button class="btn-size mx-1">42</button>
+    <button
+      *ngFor="let item of itemSizeConfig"
+      mat-icon-button
+      class="btn-size mx-1"
+      [disabled]="item.quantity == 0"
+      (click)="btnSizeClick(item._id)"
+      [ngClass]="{ active: item.isClick }"
+    >
+      {{ item.size }}
+    </button>
   </div>
 </div>
