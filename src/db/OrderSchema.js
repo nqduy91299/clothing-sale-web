@@ -10,11 +10,9 @@ const OrderSchema = new Schema({
     district: String,
     ward: String,
     orderData: [{
-        id: String,
-        data:[{
-            size: String,
-            quantity: Number,
-        }],
+        idItem: String,
+        idSize: String,
+        quantity: Number,
     }],
     amount: Number,
     orderCode: String,
@@ -27,6 +25,6 @@ const OrderSchema = new Schema({
 
 
 })
- 
-let Order = mongoose.model("Oder", OrderSchema, "Oders")
+
+let Order = mongoose.model("Order", OrderSchema, "Orders")
 module.exports = Order
