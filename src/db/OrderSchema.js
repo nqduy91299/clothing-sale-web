@@ -10,23 +10,21 @@ const OrderSchema = new Schema({
     district: String,
     ward: String,
     orderData: [{
-        id: String,
-        data:[{
-            size: String,
-            quantity: Number,
-        }],
+        idItem: String,
+        idSize: String,
+        quantity: Number,
     }],
     amount: Number,
     orderCode: String,
     status: Number
     // status == -2 : CANCEL SHIPPING
     // status == -1 : CANCEL ORDER
-    // status == 0 : ORDERED
-    // status == 1 : CONFIRMED
-    // status == 2 : SHIPPING
+    // status == 0 : ORDERED -> CREATE order
+    // status == 1 : CONFIRMED -> admin phải confirm
+    // status == 2 : SHIPPING -> 
 
 
 })
- 
+
 let Order = mongoose.model("Oder", OrderSchema, "Oders")
 module.exports = Order

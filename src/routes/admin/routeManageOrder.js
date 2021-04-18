@@ -20,14 +20,14 @@ app.post("/confirm",async (req, res)=>{
     const {orderID} = req.body
     Order.findById(orderID, function(err, docs){
         if(err)
-            return res.status(400).json({msg: "Không tìm thấy đơn hàng (1)"})
+            return res.status(400).json({code: 400, msg: "Không tìm thấy đơn hàng (1)"})
         if(docs.status !== 0)
-            return res.status(400).json({msg: "Cập nhật trạng thái đơn hàng thất bại"})
+            return res.status(400).json({code: 400, msg: "Cập nhật trạng thái đơn hàng thất bại"})
         
         Order.findByIdAndUpdate(orderID, {$set: {status: 1}}, function(err, docs){
             if(err)
-                return res.status(400).json({msg: "Không tìm thấy đơn hàng (2)"})
-            return res.status(200).json({msg: "Cập nhật trạng thái đơn hàng thành công"})
+                return res.status(400).json({code: 400, msg: "Không tìm thấy đơn hàng (2)"})
+            return res.status(200).json({code: 200, msg: "Cập nhật trạng thái đơn hàng thành công"})
         })
     })
 
@@ -37,7 +37,7 @@ app.post("/ticket", async (req, res)=>{
     const {orderID} = req.body
     Order.findById(orderID, async function(err, docs){
         if(err){
-            return res.status(400).json({msg: "Không tìm thấy đơn hàng"})
+            return res.status(400).json({code: 400, msg: "Không tìm thấy đơn hàng"})
         }
         if(docs.status === 1){
             let items =await createItems(docs)
@@ -68,15 +68,15 @@ app.post("/ticket", async (req, res)=>{
             if (result.code === 200){
                 Order.findByIdAndUpdate(orderID,{$set: {status: 2, orderCode: result.data.order_code}}, function(err, docs){
                     if(err)
-                        return res.status(400).json({msg: "Lỗi cập nhật đơn hàng"})
-                    return res.status(200).json({msg: "Cập nhật đơn hàng thành công"})
+                        return res.status(400).json({code: 400, msg: "Lỗi cập nhật đơn hàng"})
+                    return res.status(200).json({code: 200, msg: "Cập nhật đơn hàng thành công"})
                 })  
             }else{
-                return res.status(400).json({msg: "Cập nhật đơn hàng thất bại"})
+                return res.status(400).json({code: 400, msg: "Cập nhật đơn hàng thất bại", err: result})
             }
             
         }else{
-            return res.status(400).json({msg: "Cập nhật đơn hàng thất bại (status)"})
+            return res.status(400).json({code: 400, msg: "Cập nhật đơn hàng thất bại (status)"})
         }
         
 
@@ -89,7 +89,7 @@ app.post("/cancel", async (req, res)=>{
 
     await Order.findById(orderID,async function(err, docs){
         if(err){
-            return res.status(400).json({msg: "Không tìm thấy đơn hàng"})
+            return res.status(400).json({code: 400, msg: "Không tìm thấy đơn hàng"})
         }else{
 
             let result = await fetch("https://dev-online-gateway.ghn.vn/shiip/public-api/v2/switch-status/cancel",{
@@ -107,13 +107,13 @@ app.post("/cancel", async (req, res)=>{
             if(result.code === 200){
                 Order.findByIdAndUpdate(orderID, {$set: {status: -2,}}, function(err, docs){
                     if(err){
-                        return res.status(400).json({msg: "Hủy đơn hàng thất bại"})
+                        return res.status(400).json({code: 400, msg: "Hủy đơn hàng thất bại"})
                     }else{
-                        return res.status(200).json({msg: "Hủy đơn hàng thành công"})
+                        return res.status(200).json({code: 200, msg: "Hủy đơn hàng thành công"})
                     }                    
                 })
             }else{
-                return res.status(400).json({msg: "Hủy đơn hàng thất bại (code)"})
+                return res.status(400).json({code: 400, msg: "Hủy đơn hàng thất bại (code)"})
             }
         }
     })
@@ -124,13 +124,11 @@ app.post("/cancel", async (req, res)=>{
 async function createItems(documents){
     let items = []
     for await(let element of documents.orderData){
-        let quantity = 0
+        console.log(element)
+        let quantity = element.quantity
         let name = ""
-        await Product.findById(element.id, function(err, docs){
-            name = docs.name
-            element.data.forEach(element => {
-                quantity = quantity + element.quantity
-            });  
+        await Product.findById(element.idItem, function(err, docs){
+            name = docs.name 
             items.push({
                 name: name,
                 quantity: quantity

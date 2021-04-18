@@ -10,28 +10,25 @@ const app = express.Router()
 app.post("/order", async (req, res)=>{
     const {phone, name, address, email, province, district, ward, data} = req.body;
     var totalAmount = 0
-    for await(let element of data){
-        let prod = await Product.findById(element.id);
+    for (let element of data){
+        let prod = await Product.findById(element.idItem);
         if(prod){
-            for await(let order of element.data){
-               await Product.findOneAndUpdate({_id: element.id, properties:{$elemMatch: {size: order.size}}}, 
-                                            {$inc: {"properties.$.quantity": -order.quantity}},
-                                            {'new': true, 'safe': true, 'upsert': true},
-                                            function(err, docs){
-                                                if(err){
-                                                    return res.status(400).json({msg: "Order thất bại (Product)"})
-                                                }
-                                                totalAmount = totalAmount + (docs.price * order.quantity)   
-
-                                            })
-            }
+           await  Product.findOneAndUpdate({_id: element.idItem, properties:{$elemMatch: {_id: element.idSize}}}, 
+                                        {$inc: {"properties.$.quantity": -element.quantity}},
+                                        {'new': true, 'safe': true, 'upsert': true},
+                                        function(err, docs){
+                                            if(err){
+                                                return res.status(400).json({msg: "Order thất bại (Product)"})
+                                            }
+                                            totalAmount = totalAmount + (docs.price * element.quantity)   
+                                        })
         }
     };
     Order.create({name: name, phone: phone, address: address, email: email, province: province, district: district, ward: ward, orderData: data, amount: totalAmount, orderCode: "", status: 0}, function(err, docs){
         if(err){
-            return res.status(400).json({msg: "Order thất bại"})
+            return res.status(400).json({code: 400, msg: "Order thất bại"})
         }
-        return res.status(200).json({msg: "Order thành công"})
+        return res.status(200).json({code: 200, msg: "Order thành công", data: docs})
     })
 })
 
@@ -43,21 +40,21 @@ app.post("/cancel",async (req, res)=>{
     let ord = await Order.findById(id);
     if(ord){
         if(ord.status !== 0){
-            return res.status(400).json({msg: "Hủy đơn hàng thất  bại (status)"})
+            return res.status(400).json({ code: 400, msg: "Hủy đơn hàng thất  bại (status)"})
         }
         let update = await Order.findByIdAndUpdate(id,{$set: {status: -1}})
         if (update){
-            return res.status(200).json({msg: "Hủy đơn hàng  thành công"})
+            return res.status(200).json({code: 200, msg: "Hủy đơn hàng  thành công"})
         }
     }else{
-        return res.status(400).json({msg: "Hủy đơn hàng thất  bại (Không tìm thấy đơn hàng)"})
+        return res.status(400).json({code: 400, msg: "Hủy đơn hàng thất  bại (Không tìm thấy đơn hàng)"})
     }
 })
 
 //check order
 app.get("/check/:id", async (req, res)=>{
     let check = await Order.findById(req.params.id)
-    return res.status(200).json(check)
+    return res.status(200).json({code: 200, msg: check})
 })
 
 //calculate fee
@@ -83,6 +80,6 @@ app.post("/fee", async (req, res)=>{
             })
     })
     request = await request.json()
-    return res.status(200).json(request)
+    return res.status(200).json({code: 200, msg: request})
 })
 module.exports = app;

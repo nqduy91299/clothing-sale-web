@@ -1,17 +1,21 @@
 const express = require("express")
 const mongoose = require('mongoose');
+const cors = require("cors")
 const app = express()
 
+app.use(cors())
 app.use("/public", express.static(__dirname + '/public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
 const routeManageProduct = require("./src/routes/admin/routeManageProduct")
 const routeIndex = require("./src/routes/index/routeIndex")
 const routeAddress = require("./src/routes/checkout/routeGetAddressCheckout")
 const routeCheckout = require("./src/routes/checkout/routeCheckout")
 const routeManageOrder = require("./src/routes/admin/routeManageOrder")
+const routeLoginAdmin = require("./src/routes/admin/routeLoginAdmin")
 
-
+app.use("/admin", routeLoginAdmin)
 app.use("/admin", routeManageProduct);
 app.use("/admin/order", routeManageOrder)
 app.use("/", routeIndex);
