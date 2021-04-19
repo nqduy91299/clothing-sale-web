@@ -80,6 +80,6 @@ app.post("/fee", async (req, res)=>{
             })
     })
     request = await request.json()
-    return res.status(200).json({code: 200, msg: request})
+    return res.status(200).json(request)
 })
 module.exports = app;
