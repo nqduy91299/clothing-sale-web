@@ -15,6 +15,7 @@ const OrderSchema = new Schema({
         quantity: Number,
     }],
     amount: Number,
+    feeShip: Number,
     orderCode: String,
     status: Number
     // status == -2 : CANCEL SHIPPING
@@ -26,5 +27,5 @@ const OrderSchema = new Schema({
 
 })
 
-let Order = mongoose.model("Oder", OrderSchema, "Oders")
+let Order = mongoose.model("Order", OrderSchema, "Orders")
 module.exports = Order

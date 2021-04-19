@@ -10,21 +10,35 @@ const app = express.Router()
 app.post("/order", async (req, res)=>{
     const {phone, name, address, email, province, district, ward, data} = req.body;
     var totalAmount = 0
+    // check if quantity item > 0
+    for (let element of data){
+        let prod = await Product.findOne({_id: element.idItem, properties:{$elemMatch: {_id: element.idSize}}})
+        let quan = prod.properties.filter(x =>  x._id == element.idSize)
+        if(quan[0].quantity < element.quantity){
+            return res.status(400).json({code: 400, msg: "Order thất bại (Quantity)"})
+        }
+    }
     for (let element of data){
         let prod = await Product.findById(element.idItem);
         if(prod){
-           await  Product.findOneAndUpdate({_id: element.idItem, properties:{$elemMatch: {_id: element.idSize}}}, 
-                                        {$inc: {"properties.$.quantity": -element.quantity}},
-                                        {'new': true, 'safe': true, 'upsert': true},
-                                        function(err, docs){
-                                            if(err){
-                                                return res.status(400).json({msg: "Order thất bại (Product)"})
-                                            }
-                                            totalAmount = totalAmount + (docs.price * element.quantity)   
-                                        })
-        }
+            try{
+                let docs = await Product.findOneAndUpdate({_id: element.idItem, properties:{$elemMatch: {_id: element.idSize}}}, 
+                            {$inc: {"properties.$.quantity": -element.quantity}},
+                            {'new': true, 'safe': true, 'upsert': true})
+                if(docs){
+                    totalAmount = totalAmount + (docs.price * element.quantity) 
+                }
+                
+            }catch{
+                return res.status(400).json({code: 400, msg: "Order thất bại (Product)"})
+        }}
     };
-    Order.create({name: name, phone: phone, address: address, email: email, province: province, district: district, ward: ward, orderData: data, amount: totalAmount, orderCode: "", status: 0}, function(err, docs){
+    let feeShip = 0
+    let calculateFee = await getFeeShip(district)
+    if(calculateFee.code === 200){
+        feeShip = calculateFee.data.total
+    }
+    Order.create({name: name, phone: phone, address: address, email: email, province: province, district: district, ward: ward, orderData: data, amount: totalAmount,feeShip: feeShip, orderCode: "", status: 0}, function(err, docs){
         if(err){
             return res.status(400).json({code: 400, msg: "Order thất bại"})
         }
@@ -60,6 +74,12 @@ app.get("/check/:id", async (req, res)=>{
 //calculate fee
 app.post("/fee", async (req, res)=>{
     const {districtID} = req.body
+    request = await getFeeShip(districtID)
+    return res.status(200).json(request)
+})
+
+
+async function getFeeShip(districtID){
     let request = await fetch("https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee",{
             method: "POST",
             headers: {
@@ -80,6 +100,6 @@ app.post("/fee", async (req, res)=>{
             })
     })
     request = await request.json()
-    return res.status(200).json(request)
-})
+    return request
+}
 module.exports = app;
