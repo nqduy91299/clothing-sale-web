@@ -78,6 +78,13 @@ app.post("/fee", async (req, res)=>{
     return res.status(200).json(request)
 })
 
+//get history
+app.get("/history/:phone", async(req, res)=>{
+    const {phone} = req.params
+    let result = await Order.find({phone: phone})
+
+    return res.status(200).json({code: 200, msg: result})
+})
 
 async function getFeeShip(districtID){
     let request = await fetch("https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee",{
