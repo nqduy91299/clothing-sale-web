@@ -8,7 +8,7 @@ const app = express.Router()
 
 //create order
 app.post("/order", async (req, res)=>{
-    const {phone, name, address, email, province, district, ward, data} = req.body;
+    const {phone, name, address, email, province, nameProvince, district,nameDistrict, ward, nameWard, data} = req.body;
     var totalAmount = 0
     // check if quantity item > 0
     for (let element of data){
@@ -38,7 +38,7 @@ app.post("/order", async (req, res)=>{
     if(calculateFee.code === 200){
         feeShip = calculateFee.data.total
     }
-    Order.create({name: name, phone: phone, address: address, email: email, province: province, district: district, ward: ward, orderData: data, amount: totalAmount,feeShip: feeShip, orderCode: "", status: 0}, function(err, docs){
+    Order.create({name: name, phone: phone, address: address, email: email, province: province,nameProvince: nameProvince, district: district, nameDistrict: nameDistrict, ward: ward, nameWard: nameWard, orderData: data, amount: totalAmount,feeShip: feeShip, orderCode: "", status: 0}, function(err, docs){
         if(err){
             return res.status(400).json({code: 400, msg: "Order thất bại"})
         }
