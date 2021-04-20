@@ -4,7 +4,7 @@ const Account = require("../../db/AccountSchema")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 
-app.post("/login", async (req, res)=>{
+app.post("/", async (req, res)=>{
     const {username, password} = req.body
     await Account.findOne({username: username}, function(err, docs){
         if(err){

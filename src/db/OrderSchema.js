@@ -14,7 +14,7 @@ const OrderSchema = new Schema({
     nameWard: String,
     orderData: [{
         idItem: String,
-        nameItem, String,
+        nameItem: String,
         nameSize: String,
         idSize: String,
         quantity: Number,

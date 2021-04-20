@@ -121,6 +121,16 @@ app.post("/cancel", async (req, res)=>{
 
 
 })
+
+
+//get history
+app.get("/history", async (req, res)=>{
+    let history = await Order.find()
+    return res.status(200).json({code: 200, msg: history})
+})
+
+
+
 async function createItems(documents){
     let items = []
     for await(let element of documents.orderData){

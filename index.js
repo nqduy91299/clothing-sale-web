@@ -16,7 +16,7 @@ const routeCheckout = require("./src/routes/checkout/routeCheckout")
 const routeManageOrder = require("./src/routes/admin/routeManageOrder")
 const routeLoginAdmin = require("./src/routes/admin/routeLoginAdmin")
 
-app.use("/admin", routeLoginAdmin)
+app.use("/login", routeLoginAdmin)
 app.use("/admin",auth,  routeManageProduct);
 app.use("/admin/order",auth, routeManageOrder)
 app.use("/", routeIndex);
