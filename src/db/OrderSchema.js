@@ -18,6 +18,7 @@ const OrderSchema = new Schema({
         nameSize: String,
         idSize: String,
         quantity: Number,
+        priceItem:Number
     }],
     amount: Number,
     feeShip: Number,
