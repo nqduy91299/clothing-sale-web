@@ -6,12 +6,8 @@
   }
 }
 
-.btn-back-to-cart {
-  color: $active-color;
-}
-
 .mat-column-name {
-  flex: 50%;
+  flex: 40%;
 }
 .mat-column-size {
   flex: 12%;
@@ -22,15 +18,10 @@
   justify-content: center !important;
 }
 .mat-column-price {
-  flex: 25%;
+  flex: 35%;
   justify-content: flex-end !important;
 }
 
 .total {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  left: 0;
-  padding: 1.5rem;
   font-size: 23px;
 }

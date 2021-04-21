@@ -7,8 +7,9 @@ import {
   NgxGalleryOptions,
 } from '@kolkov/ngx-gallery';
 import { NgxGalleryImage } from '@kolkov/ngx-gallery';
-import { ProductModel } from 'src/app/models/index.model';
+import { ProductModel } from 'src/app/models/checkout.model';
 import { ApiIndexService } from 'src/app/services/api-index.service';
+import { configSummerNote } from 'src/app/share/constants/config-summnernote';
 import { environment } from 'src/environments/environment';
 
 const galleryOption: NgxGalleryOptions[] = [
@@ -50,6 +51,8 @@ export class ItemDetailComponent implements OnInit {
   sizeId;
   itemLeft = 0;
   itemQuantity = 1;
+  config = configSummerNote;
+
   constructor(
     private route: ActivatedRoute,
     private apiIndexService: ApiIndexService,
@@ -63,10 +66,9 @@ export class ItemDetailComponent implements OnInit {
 
   getProductDetail(id) {
     this.apiIndexService.apiProductDetailGet(id).subscribe((res) => {
-      this.product = res;
-      console.log(res);
-      this.initSizeList(res.properties);
-      this.updateGallery(res.imageMain, res.imageArray);
+      this.product = res.msg;
+      this.initSizeList(res.msg.properties);
+      this.updateGallery(res.msg.imageMain, res.msg.imageArray);
     });
   }
   initSizeList(arr) {
@@ -112,7 +114,6 @@ export class ItemDetailComponent implements OnInit {
 
   buyNowClick() {
     if (!!!this.sizeId) {
-      console.log(this.sizeId);
       alert('Please select size first. Thank You!');
     } else {
       this.router.navigate([

@@ -1,4 +1,18 @@
 <div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="py-2">
+        <button
+          class="btn-back"
+          mat-stroked-button
+          routerLink="/order-management/{{ Order?.phone }}"
+        >
+          <i class="eva eva-arrow-back"></i>
+          <span class="mx-2">Back to all orders</span>
+        </button>
+      </div>
+    </div>
+  </div>
   <div class="row py-3 aligt-item-center d-flex justify-content-center">
     <div class="col-12">
       <div
@@ -7,21 +21,28 @@
         <input
           class="form-control mx-2 w-50"
           type="text"
-          placeholder="Your order's id"
+          placeholder="Type order's ID to find another order status.."
+          [(ngModel)]="anotherId"
         />
-        <button mat-raised-button class="text-white bg-active-color">
+        <button
+          mat-raised-button
+          class="text-white bg-active-color"
+          (click)="findAnotherOrder()"
+        >
           Search
         </button>
       </div>
-      <div class="status pb-3 pt-2 border-bottom">
-        <h5 class="text-uppercase mb-2">Status</h5>
-        <div class="mb-2">
-          <span>Order id: 12312321</span>
-          <span class="mx-2 font-weight-bold"> | </span>
-          <span>Delivering</span>
+      <div class="status pb-3 border-bottom">
+        <div class="mb-3">
+          <span>
+            Order id:
+            <span class="active-color">{{ Order?._id }}</span>
+          </span>
         </div>
+        <h5 class="text-uppercase mb-2">Status</h5>
+
         <div class="stepper d-flex mb-5 justify-content-center px-2">
-          <div class="wrapper-item-stepper">
+          <div class="wrapper-item-stepper active">
             <div
               class="step-order rounded-circle p-4 mx-auto"
               id="purchase-success"
@@ -32,7 +53,10 @@
               Purchase
             </span>
           </div>
-          <div class="wrapper-item-stepper">
+          <div
+            class="wrapper-item-stepper"
+            [ngClass]="{ active: Order?.status >= 1 }"
+          >
             <div
               class="step-order rounded-circle p-4 mx-auto"
               id="confirm-purchase"
@@ -43,7 +67,10 @@
               Confirm
             </span>
           </div>
-          <div class="wrapper-item-stepper">
+          <div
+            class="wrapper-item-stepper"
+            [ngClass]="{ active: Order?.status >= 2 }"
+          >
             <div class="step-order rounded-circle p-4 mx-auto" id="delivery">
               <i class="eva eva-car-outline"></i>
             </div>
@@ -60,51 +87,112 @@
             </span>
           </div>
         </div>
+
+        <div class="mb-2 px-3 d-flex justify-content-between">
+          <span>
+            Status:
+            <span class="text-success">
+              {{ Order?.status | orderStatus }}
+              <span *ngIf="Order?.status === 2">
+                (You can get more detail in GiaoHangNhanh:
+                <a
+                  href="https://tracking.ghn.dev/?order_code={{
+                    Order?.orderCode
+                  }}"
+                  target="_blank"
+                >
+                  detail
+                </a>
+                )
+              </span>
+            </span>
+          </span>
+          <button
+            mat-raised-button
+            class="text-white bg-active-color"
+            (click)="cancelOrder()"
+            *ngIf="Order?.status != -1 && Order?.status != -2"
+          >
+            Cancel Order
+          </button>
+        </div>
       </div>
       <div class="contact pb-3 pt-2 border-bottom">
         <h5 class="text-uppercase mt-2 mb-3">Contact</h5>
-        <div class="d-flex flex-column">
-          <span class="fs-22 mb-2">Nguyễn Quốc Duy</span>
-          <span>0123123123</span>
-          <span class="font-italic">
-            19 Đ.Nguyễn Hữu Thọ, Tân Hưng, Quận 7, Thành phố Hồ Chí Minh
-          </span>
+        <div class="d-flex flex-column px-3">
+          <div class="d-flex mb-2">
+            <i class="eva eva-person-outline mr-2 info"></i>
+            <span>{{ Order?.name }}</span>
+          </div>
+          <div class="d-flex mb-2">
+            <i class="eva eva-phone-outline mr-2 info"></i>
+            <span>{{ Order?.phone }}</span>
+          </div>
+          <div class="d-flex mb-2">
+            <i class="eva eva-email-outline mr-2 info"></i>
+            <span>{{ Order?.email }}</span>
+          </div>
+          <div class="d-flex mb-2">
+            <i class="eva eva-pin-outline mr-2 info"></i>
+            <span class="font-italic">
+              {{
+                address +
+                  ", " +
+                  Order?.nameWard +
+                  ", " +
+                  Order?.nameDistrict +
+                  ", " +
+                  Order?.nameProvince
+              }}
+            </span>
+          </div>
         </div>
       </div>
       <div class="items pb-3 pt-2 border-bottom">
         <h5 class="text-uppercase mt-2 mb-3">Items</h5>
-        <mat-table [dataSource]="itemsList">
-          <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{ row.name }} </mat-cell>
-          </ng-container>
+        <div class="px-3">
+          <mat-table [dataSource]="Order?.orderData">
+            <ng-container matColumnDef="index">
+              <mat-header-cell *matHeaderCellDef> # </mat-header-cell>
+              <mat-cell *matCellDef="let row; index as i">
+                {{ i + 1 }}
+              </mat-cell>
+            </ng-container>
 
-          <ng-container matColumnDef="size">
-            <mat-header-cell *matHeaderCellDef> Size </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{ row.size }} </mat-cell>
-          </ng-container>
+            <ng-container matColumnDef="name">
+              <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+              <mat-cell *matCellDef="let row"> {{ row.nameItem }} </mat-cell>
+            </ng-container>
 
-          <ng-container matColumnDef="quantity">
-            <mat-header-cell *matHeaderCellDef> Quantity </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{ row.quantity }} </mat-cell>
-          </ng-container>
-          <ng-container matColumnDef="price">
-            <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{ row.price }} </mat-cell>
-          </ng-container>
+            <ng-container matColumnDef="size">
+              <mat-header-cell *matHeaderCellDef> Size </mat-header-cell>
+              <mat-cell *matCellDef="let row"> {{ row.nameSize }} </mat-cell>
+            </ng-container>
 
-          <mat-header-row *matHeaderRowDef="columnItems"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: columnItems"></mat-row>
-        </mat-table>
+            <ng-container matColumnDef="quantity">
+              <mat-header-cell *matHeaderCellDef> Quantity </mat-header-cell>
+              <mat-cell *matCellDef="let row"> {{ row.quantity }} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="price">
+              <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                {{ row.priceItem | currencyvnd }}
+              </mat-cell>
+            </ng-container>
 
-        <div class="calc-item mt-3 d-flex justify-content-end mx-4">
+            <mat-header-row *matHeaderRowDef="columnItems"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: columnItems"></mat-row>
+          </mat-table>
+        </div>
+
+        <div class="calc-item mt-3 d-flex justify-content-end mx-4 px-3">
           <table>
             <tr class="temp">
               <td class="text-right">
                 <span>Temporary price:</span>
               </td>
               <td class="text-right">
-                <span class="pl-4">$201912</span>
+                <span class="pl-4">{{ tempPrice | currencyvnd }}</span>
               </td>
             </tr>
             <tr class="promo">
@@ -112,7 +200,7 @@
                 <span>Promotion:</span>
               </td>
               <td class="text-right">
-                <span class="pl-4">- $2</span>
+                <span class="pl-4">- {{ 0 | currencyvnd }}</span>
               </td>
             </tr>
             <tr class="delivery">
@@ -120,7 +208,7 @@
                 <span>Delivery price:</span>
               </td>
               <td class="text-right">
-                <span class="pl-4">$201912</span>
+                <span class="pl-4">{{ deliveryPrice | currencyvnd }}</span>
               </td>
             </tr>
             <tr class="total fs-22 font-weight-bold">
@@ -128,7 +216,9 @@
                 <span>Total:</span>
               </td>
               <td class="text-right pt-2">
-                <span class="pl-4">$201912</span>
+                <span class="pl-4">
+                  {{ deliveryPrice + tempPrice | currencyvnd }}
+                </span>
               </td>
             </tr>
           </table>
@@ -139,6 +229,12 @@
       >
         <h5>Payment method</h5>
         <span [style.fontSize]="'20px'"> c.o.d (Payment on delivery)</span>
+      </div>
+      <div class="py-2">
+        <button class="btn-back" mat-stroked-button routerLink="/">
+          <i class="eva eva-arrow-back"></i>
+          <span class="mx-2">Back to Shopping</span>
+        </button>
       </div>
     </div>
   </div>

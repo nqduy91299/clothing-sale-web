@@ -16,17 +16,30 @@
 
     <div class="collapse navbar-collapse ml-3" id="navbarSupportedContent">
       <div class="row w-105">
-        <div class="col-12 col-md-4 col-lg-3">
+        <div class="col-12 col-md-5 col-lg-5">
           <ul class="navbar-nav">
-            <li class="nav-item active">
-              <a class="nav-link" routerLink="/">Home </a>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                routerLink="/"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+              >
+                Home
+              </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Promotions </a>
+              <a
+                class="nav-link"
+                routerLink="/order-management"
+                routerLinkActive="active"
+              >
+                Order Management
+              </a>
             </li>
           </ul>
         </div>
-        <div class="col-12 col-md-4 col-lg-6">
+        <div class="col-12 col-md-4 col-lg-4">
           <div class="search d-flex">
             <input
               class="form-control w-80"
@@ -61,10 +74,15 @@
           class="col-12 col-md-4 col-lg-3 d-flex justify-content-md-end p-md-0"
         >
           <div class="nav-bar-icon">
-            <button class="btn-icon mx-lg-1" mat-icon-button matTooltip="Cart">
+            <button
+              class="btn-icon mx-lg-1"
+              mat-icon-button
+              matTooltip="Cart"
+              routerLink="/cart"
+            >
               <i
                 class="eva eva-shopping-cart-outline fs-22"
-                matBadge="4"
+                matBadge="{{ totalItem }}"
                 matBadgeOverlap="false"
               ></i>
             </button>

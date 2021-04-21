@@ -34,9 +34,7 @@ input[name="items-search-bar"] {
     &:hover {
       color: $hover-color;
     }
-  }
-  &.active {
-    a.nav-link {
+    &.active {
       font-weight: 600;
       color: $active-color;
 

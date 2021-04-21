@@ -18,7 +18,12 @@
       class="item-image__action w-100 text-center"
       matTooltip="{{ !sizeId ? 'Select size first' : '' }}"
     >
-      <button mat-raised-button class="mx-1" [disabled]="!sizeId">
+      <button
+        mat-raised-button
+        class="mx-1"
+        [disabled]="!sizeId"
+        (click)="btnClick()"
+      >
         Add to cart
       </button>
       <button
@@ -26,7 +31,7 @@
         class="mx-1"
         routerLink="/product/{{ itemCardConfig._id }}"
       >
-        Buy this now
+        {{ sizeId ? "Buy This Now" : "Get Detail" }}
       </button>
     </div>
     <img
@@ -50,7 +55,7 @@
       *ngFor="let item of itemSizeConfig"
       mat-icon-button
       class="btn-size mx-1"
-      [disabled]="item.quantity == 0"
+      [disabled]="item.quantity <= 0"
       (click)="btnSizeClick(item._id)"
       [ngClass]="{ active: item.isClick }"
     >

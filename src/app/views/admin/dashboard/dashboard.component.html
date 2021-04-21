@@ -1,1 +1,49 @@
-<p>dashboard works!</p>
+<nav class="d-absolute">
+  <div class="container-fluid border-bottom">
+    <div class="row">
+      <div class="col-12 d-flex justify-content-between py-2">
+        <div class="brand text-uppercase fs-22">ClothStore</div>
+        <div class="auth px-4">
+          <button mat-flat-button class="logout" (click)="logout()">
+            <u>Logout</u>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-3 pl-0">
+      <div class="tab-vertical">
+        <button
+          mat-flat-button
+          class="btn-tab w-100 bg-active-color text-white py-3 d-flex"
+          routerLink="/admin/products-management"
+          routerLinkActive="active"
+        >
+          Products management
+        </button>
+        <button
+          mat-flat-button
+          class="btn-tab w-100 bg-active-color text-white py-3 d-flex"
+          routerLink="/admin/orders-management"
+          routerLinkActive="active"
+        >
+          Orders management
+        </button>
+        <button
+          mat-flat-button
+          class="btn-tab w-100 bg-active-color text-white py-3 d-flex"
+          routerLink="/admin/accounts-management"
+          routerLinkActive="active"
+        >
+          Account management
+        </button>
+      </div>
+    </div>
+    <div class="col-9">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

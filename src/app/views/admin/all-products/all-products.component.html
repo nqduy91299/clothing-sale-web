@@ -1,0 +1,81 @@
+<h5 class="active-color text-italic px-3 text-capitalize">All products</h5>
+<mat-table [dataSource]="productsList">
+  <!-- Position Column -->
+  <ng-container matColumnDef="index">
+    <mat-header-cell *matHeaderCellDef> # </mat-header-cell>
+    <mat-cell *matCellDef="let element; index as i"> {{ i + 1 }} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element.name }} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="price">
+    <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      {{ element.price | currencyvnd }}
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="description">
+    <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element.description }} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="items">
+    <mat-header-cell *matHeaderCellDef> Size x Quantity </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <div class="d-flex flex-column">
+        <div *ngFor="let item of element.properties">
+          {{ item.size + " x " + item.quantity }}
+        </div>
+      </div>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="category">
+    <mat-header-cell *matHeaderCellDef> Category </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      {{ element.category | categoryProduct }}
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="action">
+    <mat-header-cell *matHeaderCellDef>
+      <button mat-icon-button matTooltip="New product" routerLink="./create">
+        <i class="eva eva-plus-square-outline fs-22"></i>
+      </button>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <button
+        mat-icon-button
+        matTooltip="View or Edit this product"
+        routerLink="./detail/{{ element?._id }}"
+      >
+        <i class="eva eva-alert-circle-outline fs-22"></i>
+      </button>
+      <button
+        mat-icon-button
+        matTooltip="View or Edit this product"
+        routerLink="./edit/{{ element?._id }}"
+      >
+        <i class="eva eva-edit-2-outline fs-22"></i>
+      </button>
+      <button
+        mat-icon-button
+        matTooltip="Delete this product"
+        (click)="deleteProduct(element._id)"
+      >
+        <i class="eva eva-trash-2-outline fs-22"></i>
+      </button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+</mat-table>
+<mat-paginator
+  #paginator
+  (page)="paginatorChange($event)"
+  [pageSize]="pageSize"
+  [length]="totalOrders"
+  [hidePageSize]="false"
+  [showFirstLastButtons]="true"
+  [pageSizeOptions]="[5, 10, 20, 50]"
+>
+</mat-paginator>

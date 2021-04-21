@@ -19,7 +19,7 @@ export const configSummerNote = {
     ],
     ['fontsize', ['fontname', 'fontsize', 'color']],
     ['para', ['style', 'ul', 'ol', 'paragraph', 'height']],
-    ['insert', ['table', 'picture', 'hr']],
+    ['insert', ['table', 'hr']],
   ],
   fontNames: [
     'Helvetica',

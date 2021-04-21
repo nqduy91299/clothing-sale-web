@@ -1,17 +1,21 @@
 <div class="container">
-  <div class="row py-4">
+  <div class="row py-5">
     <div class="col-12">
       <h5 class="text-uppercase mb-4">CART</h5>
       <mat-table [dataSource]="itemsList">
         <ng-container matColumnDef="item">
           <mat-header-cell *matHeaderCellDef> Item </mat-header-cell>
           <mat-cell *matCellDef="let item">
-            <button mat-icon-button class="btn-remove">
+            <button
+              mat-icon-button
+              class="btn-remove"
+              (click)="removeItem(item.id)"
+            >
               <i class="eva eva-close-outline"></i>
             </button>
             <img
               class="img-cart mx-3"
-              src="https://thedenimaniac.com/wp-content/uploads/2020/12/63973-a-1-600x600.jpg"
+              src="{{ host + item.mainImage }}"
               alt=""
             />
             <span class="item-name">{{ item.name }}</span>
@@ -40,7 +44,7 @@
         <ng-container matColumnDef="price">
           <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
           <mat-cell *matCellDef="let item">
-            <span class="item-price">{{ item.price }}</span>
+            <span class="item-price">{{ item.price | currencyvnd }}</span>
           </mat-cell>
         </ng-container>
 
@@ -48,22 +52,33 @@
         <mat-header-row *matHeaderRowDef="columnItems"></mat-header-row>
         <mat-row *matRowDef="let row; columns: columnItems"></mat-row>
       </mat-table>
+      <div
+        class="py-4 font-italic d-flex justify-content-center"
+        *ngIf="itemsList.length <= 0"
+      >
+        <span>Nothing in your cart. </span>
+        <a routerLink="/">Go Shopping</a>
+      </div>
       <div class="py-4 px-2 text-right">
         <span class="total-price-label mr-5">Total</span>
-        <span class="total-price ml-3">$211312</span>
+        <span class="total-price ml-3">{{ total | currencyvnd }}</span>
       </div>
       <div
         class="py-4 px-2 d-flex justify-content-between border-bottom border-top"
       >
-        <button mat-stroked-button class="py-2 active-color">
+        <button mat-stroked-button class="py-2 active-color" routerLink="../">
           <i class="eva eva-arrow-back-outline"></i>
           <span class="mx-2"> Continuous shopping </span>
         </button>
         <div>
-          <button mat-flat-button class="py-2 mx-1 btn-clear">
+          <button mat-flat-button class="py-2 mx-1 btn-clear" (click)="clear()">
             Clear shopping cart
           </button>
-          <button mat-raised-button class="py-2 mx-1 active-color">
+          <button
+            mat-raised-button
+            class="py-2 mx-1 active-color"
+            (click)="update()"
+          >
             Update shopping cart
           </button>
         </div>

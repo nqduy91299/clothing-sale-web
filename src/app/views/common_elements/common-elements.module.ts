@@ -9,6 +9,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { AccountContainerComponent } from './account-container/account-container.component';
 import { AllOrdersComponent } from './all-orders/all-orders.component';
 import { RouterModule } from '@angular/router';
+import { DialogOrderSuccessComponent } from './modals/dialog-order-success/dialog-order-success.component';
+import { ConfirmDialogComponent } from './modals/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { RouterModule } from '@angular/router';
     ProfileComponent,
     AccountContainerComponent,
     AllOrdersComponent,
+    DialogOrderSuccessComponent,
+    ConfirmDialogComponent,
   ],
   imports: [CommonModule, MaterialModule, RouterModule.forChild([])],
   exports: [
@@ -29,6 +33,8 @@ import { RouterModule } from '@angular/router';
     ProfileComponent,
     AccountContainerComponent,
     AllOrdersComponent,
+    DialogOrderSuccessComponent,
+    ConfirmDialogComponent,
   ],
 })
 export class CommonElementsModule {}

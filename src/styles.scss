@@ -29,7 +29,7 @@ button {
 }
 
 .title-color {
-  color: $title-color;
+  color: $title-color !important;
 }
 
 .fs-22 {
@@ -54,6 +54,11 @@ button {
   &:hover {
     color: $hover-color;
   }
+}
+
+.btn-back {
+  padding: 0.5rem 1.5rem;
+  color: $active-color;
 }
 
 input {
@@ -221,6 +226,20 @@ mat-form-field {
       }
     }
   }
+}
+
+button {
+  &.btn-order {
+    width: 100%;
+    .mat-button-wrapper {
+      width: 100% !important;
+    }
+  }
+}
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 // .mat-table {

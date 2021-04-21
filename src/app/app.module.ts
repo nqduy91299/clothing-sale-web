@@ -7,6 +7,7 @@ import { CommonElementsModule } from './views/common_elements/common-elements.mo
 import { AdminModule } from './views/admin/admin.module';
 import { ClientModule } from './views/client/client.module';
 
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -16,6 +17,11 @@ import { ClientModule } from './views/client/client.module';
     CommonElementsModule,
     AdminModule,
     ClientModule,
+    ToastrModule.forRoot({
+      timeOut: 2700,
+      positionClass: 'toast-bottom-left',
+      preventDuplicates: true,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],

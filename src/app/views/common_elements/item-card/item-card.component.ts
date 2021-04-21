@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ProductModel } from 'src/app/models/index.model';
+import { ProductModel } from 'src/app/models/checkout.model';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 export class ItemCardComponent implements OnInit {
   @Input() itemCardConfig: ProductModel;
   @Input() itemSizeConfig;
-  @Output() idOutput: EventEmitter<any> = new EventEmitter();
+  @Output() itemOutput: EventEmitter<any> = new EventEmitter();
   imgSrc: String =
     'https://thedenimaniac.com/wp-content/uploads/2020/12/63977-aa-600x600.jpg';
 
@@ -35,7 +35,7 @@ export class ItemCardComponent implements OnInit {
   }
 
   btnClick() {
-    this.idOutput.emit({ id: this.itemCardConfig._id, sizeId: this.sizeId });
+    this.itemOutput.emit({ item: this.itemCardConfig, sizeId: this.sizeId });
   }
 
   btnSizeClick(size_id) {
@@ -55,4 +55,6 @@ export class ItemCardComponent implements OnInit {
       });
     }
   }
+
+  addToCard() {}
 }

@@ -59,14 +59,19 @@
           <app-item-card
             [itemCardConfig]="item"
             [itemSizeConfig]="item.properties"
+            (itemOutput)="addToCart($event)"
           ></app-item-card>
         </div>
       </div>
       <div class="pagination d-flex justify-content-end">
         <mat-paginator
-          [length]="100"
-          [pageSize]="10"
-          [pageSizeOptions]="[5, 10, 25, 100]"
+          #paginator
+          (page)="paginatorChange($event)"
+          [pageSize]="pageSize"
+          [length]="totalOrders"
+          [hidePageSize]="false"
+          [showFirstLastButtons]="true"
+          [pageSizeOptions]="[9, 12, 24, 48, 96]"
         >
         </mat-paginator>
       </div>

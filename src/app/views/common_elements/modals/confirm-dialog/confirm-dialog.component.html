@@ -1,0 +1,16 @@
+<div class="container-dialog">
+  <h2 class="pb-2">Confirm Dialog</h2>
+  <mat-dialog-content class="py-4">
+    {{ data.content }}
+  </mat-dialog-content>
+  <mat-dialog-actions class="py-3" align="end">
+    <button
+      mat-raised-button
+      [mat-dialog-close]="true"
+      class="bg-active-color text-white"
+    >
+      Confirm
+    </button>
+    <button mat-raised-button mat-dialog-close>Close</button>
+  </mat-dialog-actions>
+</div>

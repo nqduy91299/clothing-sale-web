@@ -1,0 +1,124 @@
+<button class="btn-back" mat-stroked-button routerLink="../">
+  <i class="eva eva-arrow-back"></i>
+  <span class="mx-2">Back to All Products</span>
+</button>
+<h5 class="title-color text-italic my-3 px-3 text-capitalize">
+  Create a new product
+</h5>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div
+        class="created-card border rounded shadow-sm p-4 mx-2 mb-4"
+        [formGroup]="productFrm"
+      >
+        <div class="d-flex">
+          <span class="label-left">Name</span>
+          <mat-form-field
+            class="form-right custom-small-outline"
+            appearance="outline"
+          >
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" />
+            <mat-error>Name has to fill</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="d-flex">
+          <span class="label-left">Category</span>
+
+          <mat-form-field
+            class="form-right custom-small-outline"
+            appearance="outline"
+          >
+            <mat-label>Category</mat-label>
+            <mat-select formControlName="category">
+              <mat-option [value]="1"> Shirt </mat-option>
+              <mat-option [value]="2"> Coat </mat-option>
+              <mat-option [value]="3"> Pant </mat-option>
+            </mat-select>
+            <mat-error>Category has to fill</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="d-flex">
+          <span class="label-left">Price</span>
+          <mat-form-field
+            class="form-right custom-small-outline"
+            appearance="outline"
+          >
+            <mat-label>Price</mat-label>
+            <input matInput formControlName="price" />
+            <mat-error>Price has to fill</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="d-flex">
+          <span class="label-left">Description</span>
+          <mat-form-field
+            class="form-right custom-small-outline"
+            appearance="outline"
+          >
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description"></textarea>
+            <mat-error>Name has to fill</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="d-flex">
+          <span class="label-left">Size S</span>
+          <div class="form-right">
+            <mat-form-field class="custom-small-outline" appearance="outline">
+              <mat-label>Quantity</mat-label>
+              <input matInput type="number" formControlName="sizeS" />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="d-flex">
+          <span class="label-left">Size M</span>
+          <div class="form-right">
+            <mat-form-field class="custom-small-outline" appearance="outline">
+              <mat-label>Quantity</mat-label>
+              <input matInput type="number" formControlName="sizeM" />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="d-flex">
+          <span class="label-left">Size L</span>
+          <div class="form-right">
+            <mat-form-field class="custom-small-outline" appearance="outline">
+              <mat-label>Quantity</mat-label>
+              <input matInput type="number" formControlName="sizeL" />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="d-flex my-4">
+          <span>Main Image</span>
+          <div class="form-right">
+            <input
+              type="file"
+              (change)="getFile($event)"
+              accept="image/png, image/jpeg"
+            />
+          </div>
+        </div>
+        <div class="d-flex my-4">
+          <span>Subs Image</span>
+          <div class="form-right">
+            <input
+              type="file"
+              multiple
+              (change)="getFileArray($event)"
+              accept="image/png, image/jpeg"
+            />
+          </div>
+        </div>
+        <div class="d-flex justify-content-end">
+          <button
+            mat-raised-button
+            class="text-white bg-active-color"
+            (click)="submit()"
+          >
+            Create
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

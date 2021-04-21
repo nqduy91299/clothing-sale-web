@@ -1,0 +1,14 @@
+@import "../../../../styles.scss";
+.form-right {
+  width: 88%;
+  margin-left: auto;
+  span {
+    color: $active-color;
+  }
+}
+
+img {
+  border-radius: 4px;
+  max-width: 200px;
+  max-height: 200px;
+}

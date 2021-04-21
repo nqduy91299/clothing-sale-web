@@ -6,7 +6,7 @@ import { CheckOutComponent } from './check-out/check-out.component';
 import { ClientContainerComponent } from './client-container/client-container.component';
 import { HomeComponent } from './home/home.component';
 import { ItemDetailComponent } from './item-detail/item-detail.component';
-import { LoginComponent } from './login/login.component';
+import { OrderManagementComponent } from './order-management/order-management.component';
 import { RegisterComponent } from './register/register.component';
 import { TrackingOrderComponent } from './tracking-order/tracking-order.component';
 
@@ -24,12 +24,8 @@ const routes: Routes = [
         component: AccountContainerComponent,
       },
       {
-        path: ':id/cart',
+        path: 'cart',
         component: CartComponent,
-      },
-      {
-        path: 'tracking-order/:id',
-        component: TrackingOrderComponent,
       },
       {
         path: 'product/:id',
@@ -43,11 +39,19 @@ const routes: Routes = [
         path: 'checkout/:id/:size_id/:quantity',
         component: CheckOutComponent,
       },
+      {
+        path: 'order-management',
+        component: OrderManagementComponent,
+      },
+      {
+        path: 'order-management/:phone',
+        component: OrderManagementComponent,
+      },
+      {
+        path: 'order-management/tracking-order/:id',
+        component: TrackingOrderComponent,
+      },
     ],
-  },
-  {
-    path: 'login',
-    component: LoginComponent,
   },
   {
     path: 'register',
