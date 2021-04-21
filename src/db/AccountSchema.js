@@ -5,8 +5,7 @@ const AccountSchema = new Schema({
     username: String,
     password: String,
     role: Number,
-    username: String,
-    email: String,
+    name: String,
     // role == 1 : ADMIN
 
 })

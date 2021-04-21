@@ -18,9 +18,11 @@ const OrderSchema = new Schema({
         nameSize: String,
         idSize: String,
         quantity: Number,
+        priceItem: Number,
     }],
     amount: Number,
     feeShip: Number,
+    createAt: Date,
     orderCode: String,
     status: Number
     // status == -2 : CANCEL SHIPPING

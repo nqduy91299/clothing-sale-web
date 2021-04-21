@@ -125,7 +125,7 @@ app.post("/cancel", async (req, res)=>{
 
 //get history
 app.get("/history", async (req, res)=>{
-    let history = await Order.find()
+    let history = await Order.find().sort({createAt: -1})
     return res.status(200).json({code: 200, msg: history})
 })
 

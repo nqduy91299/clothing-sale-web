@@ -38,7 +38,7 @@ app.post("/order", async (req, res)=>{
     if(calculateFee.code === 200){
         feeShip = calculateFee.data.total
     }
-    Order.create({name: name, phone: phone, address: address, email: email, province: province,nameProvince: nameProvince, district: district, nameDistrict: nameDistrict, ward: ward, nameWard: nameWard, orderData: data, amount: totalAmount,feeShip: feeShip, orderCode: "", status: 0}, function(err, docs){
+    Order.create({name: name, phone: phone, address: address, email: email, province: province,nameProvince: nameProvince, district: district, nameDistrict: nameDistrict, ward: ward, nameWard: nameWard, orderData: data, amount: totalAmount, createAt: Date.now(),feeShip: feeShip, orderCode: "", status: 0}, function(err, docs){
         if(err){
             return res.status(400).json({code: 400, msg: "Order thất bại"})
         }
