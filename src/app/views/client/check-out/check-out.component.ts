@@ -12,6 +12,7 @@ import { ApiAddressService } from 'src/app/services/api-address.service';
 import { ApiCheckoutService } from 'src/app/services/api-checkout.service';
 import { ApiGhnService } from 'src/app/services/api-ghn.service';
 import { ApiIndexService } from 'src/app/services/api-index.service';
+import { ReadQuantityItemService } from 'src/app/services/read-quantity-item.service';
 import { DialogOrderSuccessComponent } from '../../common_elements/modals/dialog-order-success/dialog-order-success.component';
 
 export enum PAYMENT {
@@ -54,6 +55,8 @@ export class CheckOutComponent implements OnInit {
   deliveryPrice = 0;
   nameAddress = ['', '', ''];
 
+  usingCart = false;
+
   constructor(
     private ghnApi: ApiGhnService,
     private activatedRoute: ActivatedRoute,
@@ -62,13 +65,15 @@ export class CheckOutComponent implements OnInit {
     public dialog: MatDialog,
     public router: Router,
     private toastr: ToastrService,
-    private apiAddressService: ApiAddressService
+    private apiAddressService: ApiAddressService,
+    private readQuantityItemService: ReadQuantityItemService
   ) {}
 
   ngOnInit(): void {
     this.getProvince();
     const { id, size_id, quantity } = this.activatedRoute.snapshot.params;
     if (!id) {
+      this.usingCart = true;
       this.getCart();
     } else {
       this.getItem(id, size_id, quantity);
@@ -98,11 +103,20 @@ export class CheckOutComponent implements OnInit {
       .subscribe((res) => {
         if (res.code === 200) {
           const idOrder = res.data._id;
+          if (this.usingCart) {
+            this.deleteCart();
+          }
           this.navigateUrlToTrackingOrder(idOrder);
         } else {
           this.toastr.error('Please this reload page (F5)', 'Error Unexpected');
         }
       });
+  }
+
+  deleteCart() {
+    let item = [];
+    localStorage.setItem('cart', JSON.stringify(item));
+    this.readQuantityItemService.emitData(true);
   }
 
   navigateUrlToTrackingOrder(idOrder) {
