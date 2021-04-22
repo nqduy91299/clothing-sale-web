@@ -110,6 +110,10 @@ export class TrackingOrderComponent implements OnInit {
   cancelOrder() {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '450px',
+      data: {
+        content:
+          'Are you sure to cancel this order. All problems will be your responsibility',
+      },
     });
 
     dialogRef.afterClosed().subscribe((result) => {

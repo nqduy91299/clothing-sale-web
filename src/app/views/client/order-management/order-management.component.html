@@ -46,7 +46,7 @@
       >
         <div class="d-flex justify-content-between">
           <div class="id title-color">
-            Order id:
+            ID:
             <span class="active-color px-2">{{ item._id }}</span>
           </div>
           <div class="status title-color">
@@ -89,6 +89,14 @@
               }}
             </span>
           </div>
+          <div class="phone title-color">
+            Purchase's Date:
+            <span class="active-color px-2">
+              {{ item.createAt | datevnese }}
+            </span>
+          </div>
+        </div>
+        <div class="d-flex justify-content-end">
           <div class="total title-color">
             Total:
             <span class="active-color px-2">{{

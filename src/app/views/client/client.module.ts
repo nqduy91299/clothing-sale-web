@@ -38,6 +38,9 @@ import { OrderManagementComponent } from './order-management/order-management.co
     CheckOutComponent,
     ClientRoutingModule,
     CartComponent,
+    RegisterComponent,
+    TrackingOrderComponent,
+    OrderManagementComponent,
   ],
 })
 export class ClientModule {}

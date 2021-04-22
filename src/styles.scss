@@ -26,6 +26,9 @@ button {
 }
 .active-color {
   color: $active-color;
+  &:hover {
+    color: $hover-color;
+  }
 }
 
 .title-color {

@@ -14,6 +14,11 @@ export class OrderManagementComponent implements OnInit {
   Orders: OrderModel[] = [];
   allOrders: OrderModel[] = [];
   confirmOrders: OrderModel[] = [];
+  tickets: OrderModel[] = [];
+
+  badgeConfirmedOrder = 0;
+  badgeNeededConfirmOrder = 0;
+  badgeTicket = 0;
   constructor(
     private apiManageOrderService: ApiManageOrderService,
     private toastr: ToastrService,
@@ -23,16 +28,38 @@ export class OrderManagementComponent implements OnInit {
   ngOnInit(): void {
     this.getAllOrders();
     this.getOrdersNeedConfirm();
+    this.getConfirmedOrder();
+    this.getTicket();
   }
 
   getAllOrders() {
     this.apiManageOrderService.apiAllOrdersGet().subscribe((res) => {
       if (res.code === 200) {
         this.allOrders = res.msg;
+      }
+    });
+  }
+
+  getTicket() {
+    this.apiManageOrderService.apiAllOrdersGet().subscribe((res) => {
+      if (res.code === 200) {
+        const data = res.msg.filter((item) => {
+          return item.status === 2;
+        });
+        this.tickets = [...data];
+        this.badgeTicket = this.tickets.length;
+      }
+    });
+  }
+
+  getConfirmedOrder() {
+    this.apiManageOrderService.apiAllOrdersGet().subscribe((res) => {
+      if (res.code === 200) {
         const data = res.msg.filter((item) => {
           return item.status === 1;
         });
         this.confirmOrders = [...data];
+        this.badgeConfirmedOrder = this.confirmOrders.length;
       }
     });
   }
@@ -40,6 +67,7 @@ export class OrderManagementComponent implements OnInit {
   getOrdersNeedConfirm() {
     this.apiManageOrderService.apiOrdersNeedConfirmGet().subscribe((res) => {
       this.Orders = res;
+      this.badgeNeededConfirmOrder = this.Orders.length;
     });
   }
   createTicket(id) {
@@ -59,14 +87,14 @@ export class OrderManagementComponent implements OnInit {
             .subscribe((res) => {
               if (res.code === 200) {
                 this.toastr.success(res.msg, 'Successful');
-                this.getAllOrders;
+                this.getConfirmedOrder();
+                this.getTicket();
               } else {
-                this.toastr.success(res.msg, 'Error unexpected');
+                this.toastr.error(res.msg, 'Error unexpected');
               }
             });
         } catch (error) {
-          console.error(error);
-          this.toastr.success('res.msg', 'Error unexpected');
+          this.toastr.error('res.msg', 'Error unexpected');
         }
       }
     });
@@ -84,7 +112,28 @@ export class OrderManagementComponent implements OnInit {
           if (res.code === 200) {
             this.toastr.success(res.msg, 'Successful');
             this.getOrdersNeedConfirm();
-            this.getAllOrders;
+            this.getConfirmedOrder();
+          } else {
+            this.toastr.success(res.msg, 'Error unexpected');
+          }
+        });
+      }
+    });
+  }
+
+  deleteTicket(id) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '450px',
+      data: { content: 'Are you sure to delete this ticket?' },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.apiManageOrderService.apiDeleteTicketPost(id).subscribe((res) => {
+          if (res.code === 200) {
+            this.toastr.success(res.msg, 'Successful');
+            this.getTicket();
+            this.getAllOrders();
           } else {
             this.toastr.success(res.msg, 'Error unexpected');
           }

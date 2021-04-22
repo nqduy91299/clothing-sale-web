@@ -11,10 +11,7 @@ export class ConfirmDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<ConfirmDialogComponent>,
     @Inject(MAT_DIALOG_DATA)
-    public data: ConfirmDialogModel = {
-      content:
-        'Are you sure to cancel this order. All problems will be your responsibility',
-    }
+    public data: ConfirmDialogModel
   ) {}
   ngOnInit(): void {}
 }

@@ -39,6 +39,7 @@ export interface OrderModel {
   orderCode: string;
   status: number;
   orderData: ItemOrderModel[];
+  createAt: string;
 }
 export interface ItemOrderModel {
   _id: string;

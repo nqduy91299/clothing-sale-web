@@ -2,12 +2,12 @@
 <mat-tab-group>
   <mat-tab>
     <ng-template mat-tab-label>
-      <span matBadge="{{ confirmOrders?.length }}" matBadgeOverlap="false">
-        Waiting for Create Ticket
+      <span matBadge="{{ badgeConfirmedOrder }}" matBadgeOverlap="false">
+        Confirmed Orders
       </span>
     </ng-template>
 
-    <span class="font-italic mx-3" *ngIf="confirmOrders.length === 0">
+    <span class="font-italic mx-3" *ngIf="badgeConfirmedOrder === 0">
       There no order
     </span>
     <div
@@ -46,6 +46,10 @@
           </span>
         </span>
         <span>
+          Date:
+          <span class="active-color"> {{ order.createAt | datevnese }}</span>
+        </span>
+        <span class="fs-22">
           Total:
           <span class="active-color">
             {{ order.feeShip + order.amount | currencyvnd }}</span
@@ -53,17 +57,19 @@
         </span>
       </div>
       <div class="items d-flex flex-column">
-        <span class="item" *ngFor="let item of order.orderData">
-          {{
-            item.nameItem +
-              ", Size " +
-              item.nameSize +
-              " x " +
-              item.quantity +
-              " x "
-          }}
-          {{ item.priceItem | currencyvnd }}
-        </span>
+        <ol class="px-3">
+          <li class="item" *ngFor="let item of order.orderData">
+            {{
+              item.nameItem +
+                ", Size " +
+                item.nameSize +
+                " x " +
+                item.quantity +
+                " x "
+            }}
+            {{ item.priceItem | currencyvnd }}
+          </li>
+        </ol>
       </div>
       <div class="action text-right">
         <button
@@ -79,11 +85,11 @@
 
   <mat-tab>
     <ng-template mat-tab-label>
-      <span matBadge="{{ Orders?.length }}" matBadgeOverlap="false">
+      <span matBadge="{{ badgeNeededConfirmOrder }}" matBadgeOverlap="false">
         Unconfirmed orders
       </span>
     </ng-template>
-    <span class="font-italic mx-3" *ngIf="Orders.length === 0">
+    <span class="font-italic mx-3" *ngIf="badgeNeededConfirmOrder === 0">
       There no order
     </span>
     <div
@@ -122,6 +128,10 @@
           </span>
         </span>
         <span>
+          Date:
+          <span class="active-color"> {{ order.createAt | datevnese }}</span>
+        </span>
+        <span class="fs-22">
           Total:
           <span class="active-color">
             {{ order.feeShip + order.amount | currencyvnd }}</span
@@ -129,17 +139,19 @@
         </span>
       </div>
       <div class="items d-flex flex-column">
-        <span class="item" *ngFor="let item of order.orderData">
-          {{
-            item.nameItem +
-              ", Size " +
-              item.nameSize +
-              " x " +
-              item.quantity +
-              " x "
-          }}
-          {{ item.priceItem | currencyvnd }}
-        </span>
+        <ol class="px-3">
+          <li class="item" *ngFor="let item of order.orderData">
+            {{
+              item.nameItem +
+                ", Size " +
+                item.nameSize +
+                " x " +
+                item.quantity +
+                " x "
+            }}
+            {{ item.priceItem | currencyvnd }}
+          </li>
+        </ol>
       </div>
       <div class="action text-right">
         <button
@@ -148,6 +160,96 @@
           (click)="confirmOrder(order._id)"
         >
           Confirm
+        </button>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <span matBadge="{{ badgeTicket }}" matBadgeOverlap="false">
+        Tickets
+      </span>
+    </ng-template>
+
+    <span class="font-italic mx-3" *ngIf="badgeTicket === 0">
+      There no ticket
+    </span>
+    <div
+      class="item-confirm my-3 p-3 border rounded shadow-sm d-flex justify-content-between"
+      *ngFor="let order of tickets"
+    >
+      <div class="content border-right d-flex flex-column">
+        <span>
+          ID:
+          <span class="active-color"> {{ order._id }}</span>
+        </span>
+        <span>
+          Orderer:
+          <span class="active-color"> {{ order.name }}</span>
+        </span>
+        <span>
+          Phone:
+          <span class="active-color">{{ order.phone }} </span>
+        </span>
+        <span>
+          Email:
+          <span class="active-color">{{ order.email }} </span>
+        </span>
+        <span>
+          Address:
+          <span class="active-color">
+            {{
+              order.address +
+                ", " +
+                order.nameWard +
+                ", " +
+                order.nameDistrict +
+                ", " +
+                order.nameProvince
+            }}
+          </span>
+        </span>
+        <span>
+          Date:
+          <span class="active-color"> {{ order.createAt | datevnese }}</span>
+        </span>
+        <span class="fs-22">
+          Total:
+          <span class="active-color">
+            {{ order.feeShip + order.amount | currencyvnd }}</span
+          >
+        </span>
+      </div>
+      <div class="items d-flex flex-column">
+        <ol class="px-3">
+          <li class="item" *ngFor="let item of order.orderData">
+            {{
+              item.nameItem +
+                ", Size " +
+                item.nameSize +
+                " x " +
+                item.quantity +
+                " x "
+            }}
+            {{ item.priceItem | currencyvnd }}
+          </li>
+        </ol>
+      </div>
+      <div class="action text-center">
+        <a
+          class="active-color"
+          href="https://tracking.ghn.dev/?order_code={{ order?.orderCode }}"
+          target="_blank"
+        >
+          Check Ticket
+        </a>
+        <br />
+        <button
+          mat-raised-button
+          class="px-3 py-2 text-white bg-active-color my-3"
+          (click)="deleteTicket(order._id)"
+        >
+          Delete Ticket
         </button>
       </div>
     </div>
@@ -192,6 +294,10 @@
           </span>
         </span>
         <span>
+          Date:
+          <span class="active-color"> {{ order.createAt | datevnese }}</span>
+        </span>
+        <span class="fs-22">
           Total:
           <span class="active-color">
             {{ order.feeShip + order.amount | currencyvnd }}</span

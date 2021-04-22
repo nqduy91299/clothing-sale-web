@@ -8,6 +8,11 @@ import { AdminModule } from './views/admin/admin.module';
 import { ClientModule } from './views/client/client.module';
 
 import { ToastrModule } from 'ngx-toastr';
+const configToastr = {
+  timeOut: 2700,
+  positionClass: 'toast-bottom-left',
+  preventDuplicates: true,
+};
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -17,11 +22,7 @@ import { ToastrModule } from 'ngx-toastr';
     CommonElementsModule,
     AdminModule,
     ClientModule,
-    ToastrModule.forRoot({
-      timeOut: 2700,
-      positionClass: 'toast-bottom-left',
-      preventDuplicates: true,
-    }),
+    ToastrModule.forRoot(configToastr),
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -13,6 +13,10 @@ import { ApiCheckoutService } from 'src/app/services/api-checkout.service';
 import { ApiGhnService } from 'src/app/services/api-ghn.service';
 import { ApiIndexService } from 'src/app/services/api-index.service';
 import { ReadQuantityItemService } from 'src/app/services/read-quantity-item.service';
+import {
+  minPhoneValidator,
+  timeFormatValidator,
+} from 'src/app/share/constants/phone-validate';
 import { DialogOrderSuccessComponent } from '../../common_elements/modals/dialog-order-success/dialog-order-success.component';
 
 export enum PAYMENT {
@@ -36,8 +40,12 @@ export class CheckOutComponent implements OnInit {
 
   orderFrm: FormGroup = new FormGroup({
     name: new FormControl(null, Validators.required),
-    phone: new FormControl(null, Validators.required),
-    email: new FormControl(null, Validators.required),
+    phone: new FormControl(null, [
+      Validators.required,
+      timeFormatValidator,
+      minPhoneValidator(10),
+    ]),
+    email: new FormControl(null, [Validators.required, Validators.email]),
     address: new FormControl(null, Validators.required),
     nameProvince: new FormControl(null),
     province: new FormControl(null, Validators.required),
@@ -96,7 +104,6 @@ export class CheckOutComponent implements OnInit {
       );
       return;
     }
-    console.log(this.orderFrm.value, this.itemsList);
 
     this.apiCheckoutService
       .apiCheckoutOrderPost(this.orderFrm.value, this.itemsList)

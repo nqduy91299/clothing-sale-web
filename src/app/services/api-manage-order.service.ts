@@ -54,4 +54,15 @@ export class ApiManageOrderService {
     };
     return this.httpClient.post<res2pModel<string>>(url, body, httpOptions);
   }
+
+  apiDeleteTicketPost(id): Observable<res2pModel<string>> {
+    const url = this.host + 'cancel';
+    const body = { orderID: id };
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: this.token,
+      }),
+    };
+    return this.httpClient.post<res2pModel<string>>(url, body, httpOptions);
+  }
 }

@@ -20,7 +20,7 @@ export class DashboardComponent implements OnInit {
   }
   redirect() {
     if (location.pathname === '/admin') {
-      this.router.navigate(['/admin/products-management']);
+      this.router.navigate(['/admin/orders-management']);
     }
   }
 

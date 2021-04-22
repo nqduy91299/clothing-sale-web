@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { ProductModel } from 'src/app/models/checkout.model';
 import { environment } from 'src/environments/environment';
 
@@ -18,7 +19,7 @@ export class ItemCardComponent implements OnInit {
   sizeId = null;
   isFavorite: Boolean = false;
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.init();
@@ -56,5 +57,13 @@ export class ItemCardComponent implements OnInit {
     }
   }
 
-  addToCard() {}
+  buyNow() {
+    if (this.sizeId) {
+      this.router.navigate([
+        `/checkout/${this.itemCardConfig._id}/${this.sizeId}/1`,
+      ]);
+    } else {
+      this.router.navigate([`/product/${this.itemCardConfig._id}`]);
+    }
+  }
 }

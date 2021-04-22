@@ -70,7 +70,6 @@ export class EditProductComponent implements OnInit {
     this.apiIndexService.apiProductDetailGet(id).subscribe((res) => {
       if (res.code === 200) {
         this.updateForm(res.msg);
-        console.log(res);
       }
     });
   }

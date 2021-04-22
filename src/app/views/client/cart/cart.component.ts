@@ -28,12 +28,10 @@ export class CartComponent implements OnInit {
 
   updateTotal(list) {
     this.total = 0;
-    console.log(list.length <= 0);
     if (list.length <= 0) {
       this.total = 0;
     } else {
       list.forEach((item) => {
-        console.log(item);
         this.total += item.price * item.quantity;
       });
     }

@@ -19,7 +19,15 @@
           >
             <mat-label>Phone</mat-label>
             <input formControlName="phone" matInput type="tel" maxlength="10" />
-            <mat-error>Phone has to fill</mat-error>
+            <mat-error *ngIf="orderFrm.controls.phone?.errors?.required"
+              >Phone has to fill</mat-error
+            >
+            <mat-error *ngIf="orderFrm.controls.phone?.errors?.phone">
+              Phone invalid
+            </mat-error>
+            <mat-error *ngIf="orderFrm.controls.phone?.errors?.minPhone">
+              Phone 10 digits
+            </mat-error>
           </mat-form-field>
 
           <mat-form-field
@@ -28,7 +36,12 @@
           >
             <mat-label>Email</mat-label>
             <input formControlName="email" matInput />
-            <mat-error>Email has to fill</mat-error>
+            <mat-error *ngIf="orderFrm.controls.email?.errors?.required">
+              Email has to fill
+            </mat-error>
+            <mat-error *ngIf="orderFrm.controls.email?.errors?.email">
+              Email invalid
+            </mat-error>
           </mat-form-field>
 
           <mat-form-field
@@ -57,7 +70,11 @@
               <mat-error>Please select Province or City</mat-error>
             </mat-form-field>
 
-            <mat-form-field class="custom-small-outline" appearance="outline">
+            <mat-form-field
+              class="custom-small-outline"
+              appearance="outline"
+              [ngClass]="{ hidden: !!!orderFrm.value.province }"
+            >
               <mat-label>District</mat-label>
               <mat-select
                 formControlName="district"
@@ -73,7 +90,11 @@
               <mat-error>Please select District</mat-error>
             </mat-form-field>
 
-            <mat-form-field class="custom-small-outline" appearance="outline">
+            <mat-form-field
+              class="custom-small-outline"
+              appearance="outline"
+              [ngClass]="{ hidden: !!!orderFrm.value.district }"
+            >
               <mat-label>Ward</mat-label>
               <mat-select
                 formControlName="ward"

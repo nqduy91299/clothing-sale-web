@@ -26,11 +26,7 @@
       >
         Add to cart
       </button>
-      <button
-        mat-raised-button
-        class="mx-1"
-        routerLink="/product/{{ itemCardConfig._id }}"
-      >
+      <button mat-raised-button class="mx-1" routerLink="" (click)="buyNow()">
         {{ sizeId ? "Buy This Now" : "Get Detail" }}
       </button>
     </div>
