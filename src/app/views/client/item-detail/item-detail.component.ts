@@ -7,8 +7,10 @@ import {
   NgxGalleryOptions,
 } from '@kolkov/ngx-gallery';
 import { NgxGalleryImage } from '@kolkov/ngx-gallery';
+import { ToastrService } from 'ngx-toastr';
 import { ProductModel } from 'src/app/models/checkout.model';
 import { ApiIndexService } from 'src/app/services/api-index.service';
+import { ReadQuantityItemService } from 'src/app/services/read-quantity-item.service';
 import { configSummerNote } from 'src/app/share/constants/config-summnernote';
 import { environment } from 'src/environments/environment';
 
@@ -56,7 +58,9 @@ export class ItemDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private apiIndexService: ApiIndexService,
-    public router: Router
+    public router: Router,
+    private toastr: ToastrService,
+    private readQuantityItemService: ReadQuantityItemService
   ) {}
 
   ngOnInit(): void {
@@ -119,6 +123,40 @@ export class ItemDetailComponent implements OnInit {
       this.router.navigate([
         `/checkout/${this.product._id}/${this.sizeId}/${this.itemQuantity}`,
       ]);
+    }
+  }
+  addCart() {
+    if (!!!this.sizeId) {
+      alert('Please select size first. Thank You!');
+    } else {
+      let currentCart = localStorage.getItem('cart');
+      let newCart: any[] = JSON.parse(currentCart);
+      let indexDup;
+      let dup = newCart.find((item, index) => {
+        indexDup = index;
+        return item.sizeId === this.sizeId;
+      });
+      if (!dup) {
+        const size = this.product.properties.find((item) => {
+          return item._id === this.sizeId;
+        }).size;
+        const item = {
+          id: this.product._id,
+          name: this.product.name,
+          price: this.product.price,
+          mainImage: this.product.imageMain,
+          size: size,
+          sizeId: this.sizeId,
+          quantity: this.itemQuantity,
+        };
+        newCart = [...newCart, item];
+      } else {
+        dup.quantity = dup.quantity + this.itemQuantity;
+        newCart.splice(indexDup, 1, dup);
+      }
+      localStorage.setItem('cart', JSON.stringify(newCart));
+      this.toastr.success('Add item to cart', 'Successful');
+      this.readQuantityItemService.emitData(true);
     }
   }
 }

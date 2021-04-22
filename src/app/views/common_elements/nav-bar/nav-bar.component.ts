@@ -28,7 +28,7 @@ export class NavBarComponent implements OnInit {
   getCart() {
     let currentCart = localStorage.getItem('cart');
     let cart = JSON.parse(currentCart);
-    this.totalItem = cart.length;
+    this.totalItem = cart?.length;
   }
 
   changeStatusSearch() {

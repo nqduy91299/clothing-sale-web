@@ -11,6 +11,7 @@ import { AllOrdersComponent } from './all-orders/all-orders.component';
 import { RouterModule } from '@angular/router';
 import { DialogOrderSuccessComponent } from './modals/dialog-order-success/dialog-order-success.component';
 import { ConfirmDialogComponent } from './modals/confirm-dialog/confirm-dialog.component';
+import { ShareModule } from 'src/app/share/share.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,12 @@ import { ConfirmDialogComponent } from './modals/confirm-dialog/confirm-dialog.c
     DialogOrderSuccessComponent,
     ConfirmDialogComponent,
   ],
-  imports: [CommonModule, MaterialModule, RouterModule.forChild([])],
+  imports: [
+    CommonModule,
+    MaterialModule,
+    RouterModule.forChild([]),
+    ShareModule,
+  ],
   exports: [
     NavBarComponent,
     FooterComponent,

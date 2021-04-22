@@ -14,7 +14,7 @@
         </h1>
       </div>
       <div class="price mt-2">
-        <h3>{{ product?.price }}VND</h3>
+        <h3>{{ product?.price | currencyvnd }}</h3>
       </div>
       <div class="description py-3">
         <!-- <div
@@ -63,7 +63,11 @@
             Check out
           </button>
         </div>
-        <button class="py-2 mr-2 mt-2 px-5 second-action" mat-raised-button>
+        <button
+          class="py-2 mr-2 mt-2 px-5 second-action"
+          mat-raised-button
+          (click)="addCart()"
+        >
           Add to cart
           <i class="eva eva-shopping-cart-outline fs-22"></i>
         </button>
