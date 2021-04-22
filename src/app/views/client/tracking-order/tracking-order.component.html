@@ -50,12 +50,18 @@
               <i class="eva eva-clipboard-outline"></i>
             </div>
             <span class="description-step text-center pt-2 w-100">
-              Purchase
+              Purchased
             </span>
           </div>
           <div
             class="wrapper-item-stepper"
-            [ngClass]="{ active: Order?.status >= 1 }"
+            [ngClass]="{
+              active: Order?.status >= 1
+            }"
+            [ngClass]="{
+              active: Order?.status == -2
+            }"
+            *ngIf="!(Order?.status == -1)"
           >
             <div
               class="step-order rounded-circle p-4 mx-auto"
@@ -64,12 +70,13 @@
               <i class="eva eva-checkmark-square-outline"></i>
             </div>
             <span class="description-step text-center pt-2 w-100">
-              Confirm
+              Confirmed
             </span>
           </div>
           <div
             class="wrapper-item-stepper"
             [ngClass]="{ active: Order?.status >= 2 }"
+            *ngIf="!(Order?.status == -1 || Order?.status == -2)"
           >
             <div class="step-order rounded-circle p-4 mx-auto" id="delivery">
               <i class="eva eva-car-outline"></i>
@@ -78,7 +85,10 @@
               Delivering
             </span>
           </div>
-          <div class="wrapper-item-stepper">
+          <div
+            class="wrapper-item-stepper"
+            *ngIf="!(Order?.status == -1 || Order?.status == -2)"
+          >
             <div class="step-order rounded-circle p-4 mx-auto" id="delivered">
               <i class="eva eva-download-outline"></i>
             </div>
@@ -86,12 +96,31 @@
               Received
             </span>
           </div>
+          <div
+            class="wrapper-item-stepper"
+            [ngClass]="{
+              active: Order?.status == -1 || Order?.status == -2
+            }"
+            *ngIf="Order?.status == -1 || Order?.status == -2"
+          >
+            <div class="step-order rounded-circle p-4 mx-auto" id="cancel">
+              <i class="eva eva-close-outline"></i>
+            </div>
+            <span class="description-step text-center pt-2 w-100">
+              Canceled
+            </span>
+          </div>
         </div>
 
         <div class="mb-2 px-3 d-flex justify-content-between">
           <span>
             Status:
-            <span class="text-success">
+            <span
+              [ngClass]="{
+                'active-color': Order?.status >= 0,
+                'line-through': Order?.status < 0
+              }"
+            >
               {{ Order?.status | orderStatus }}
               <span *ngIf="Order?.status === 2">
                 (You can get more detail in GiaoHangNhanh:
@@ -111,7 +140,7 @@
             mat-raised-button
             class="text-white bg-active-color"
             (click)="cancelOrder()"
-            *ngIf="Order?.status != -1 && Order?.status != -2"
+            *ngIf="Order?.status === 0"
           >
             Cancel Order
           </button>

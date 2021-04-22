@@ -127,9 +127,7 @@ export class TrackingOrderComponent implements OnInit {
     this.apiCheckoutService.apiCancelOrderPost(id).subscribe((res) => {
       if (res.code === 200) {
         this.toastr.success(res.msg, 'Successful');
-        setTimeout(() => {
-          this.router.navigate([`order-management/${this.Order.phone}`]);
-        }, 1000);
+        this.getOrderById(id);
       } else {
         this.toastr.error('Please reload this page (F5)', 'Error Unexpected');
       }
